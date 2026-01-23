@@ -10,12 +10,12 @@ export interface AdConfig {
 }
 
 export function getAdConfig(): AdConfig {
-  const provider = (process.env.NEXT_PUBLIC_ADS_PROVIDER || 'none') as AdProvider
-  const enabled = provider !== 'none' && process.env.NODE_ENV === 'production'
+  const provider = (process.env.NEXT_PUBLIC_ADS_PROVIDER || 'adsense') as AdProvider
+  const enabled = provider !== 'none'
 
   return {
     provider,
-    clientId: process.env.NEXT_PUBLIC_ADSENSE_CLIENT_ID,
+    clientId: process.env.NEXT_PUBLIC_ADSENSE_CLIENT_ID || 'ca-pub-5570650174796895',
     enabled,
   }
 }

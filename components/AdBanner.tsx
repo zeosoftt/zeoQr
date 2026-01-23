@@ -59,8 +59,8 @@ export default function AdBanner({ position }: AdBannerProps) {
           <ins
             className="adsbygoogle"
             style={{ display: 'block' }}
-            data-ad-client={adConfig.clientId}
-            data-ad-slot="1234567890" // Replace with actual ad slot
+            data-ad-client="ca-pub-5570650174796895"
+            data-ad-slot="1234567890" // Replace with actual ad slot ID from AdSense
             data-ad-format="auto"
             data-full-width-responsive="true"
           />

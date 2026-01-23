@@ -14,6 +14,9 @@ export const metadata: Metadata = {
     icon: '/icon.svg',
     apple: '/icon.svg',
   },
+  other: {
+    'google-adsense-account': 'ca-pub-5570650174796895',
+  },
   openGraph: {
     title: 'ZeoQR - Ücretsiz QR Kod Oluşturucu',
     description: 'Anında QR kod oluşturun. Giriş gerektirmez.',
@@ -37,6 +40,9 @@ export default function RootLayout({
 }) {
   return (
     <html lang="tr">
+      <head>
+        <meta name="google-adsense-account" content="ca-pub-5570650174796895" />
+      </head>
       <body className={inter.className}>
         <Navigation />
         {children}
