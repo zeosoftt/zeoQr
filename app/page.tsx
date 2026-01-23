@@ -17,7 +17,7 @@ export default async function Home() {
             ZeoQR
           </h1>
           <p className="text-gray-500 dark:text-gray-400 font-light">
-            Generate QR codes instantly
+            Anında QR kod oluşturun
           </p>
         </header>
 

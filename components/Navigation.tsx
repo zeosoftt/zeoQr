@@ -3,6 +3,7 @@
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import { useEffect, useState } from 'react'
+import Image from 'next/image'
 
 export default function Navigation() {
   const pathname = usePathname()
@@ -16,12 +17,12 @@ export default function Navigation() {
   }, [])
 
   const navItems = [
-    { href: '/', label: 'Home' },
-    { href: '/pricing', label: 'Pricing' },
+    { href: '/', label: 'Ana Sayfa' },
+    { href: '/pricing', label: 'Fiyatlandırma' },
     ...(isPremium
       ? [
-          { href: '/analytics', label: 'Analytics' },
-          { href: '/bulk', label: 'Bulk Generator' },
+          { href: '/analytics', label: 'Analitik' },
+          { href: '/bulk', label: 'Toplu Üretim' },
         ]
       : []),
   ]
@@ -30,8 +31,11 @@ export default function Navigation() {
     <nav className="border-b border-gray-200 dark:border-gray-800 bg-white dark:bg-gray-900">
       <div className="container mx-auto px-4">
         <div className="flex items-center justify-between h-16">
-          <Link href="/" className="text-xl font-light text-gray-900 dark:text-white tracking-tight">
-            ZeoQR
+          <Link href="/" className="flex items-center gap-2">
+            <Image src="/icon.svg" alt="ZeoQR" width={32} height={32} className="dark:invert" />
+            <span className="text-xl font-light text-gray-900 dark:text-white tracking-tight">
+              ZeoQR
+            </span>
           </Link>
           <div className="flex items-center gap-6">
             {navItems.map((item) => (

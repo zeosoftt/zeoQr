@@ -26,7 +26,7 @@ export default function QRGenerator({ isPremium }: QRGeneratorProps) {
 
   const handleGenerate = async () => {
     if (!content.trim()) {
-      setError('Please enter content')
+      setError('Lütfen içerik girin')
       return
     }
 
@@ -63,7 +63,7 @@ export default function QRGenerator({ isPremium }: QRGeneratorProps) {
 
       setQrDataUrl(dataUrl)
     } catch (err) {
-      setError(err instanceof Error ? err.message : 'Failed to generate QR code')
+      setError(err instanceof Error ? err.message : 'QR kod oluşturulamadı')
     } finally {
       setLoading(false)
     }
@@ -81,9 +81,9 @@ export default function QRGenerator({ isPremium }: QRGeneratorProps) {
           <div>
             <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
               {type === 'url' && 'URL'}
-              {type === 'text' && 'Text'}
-              {type === 'phone' && 'Phone Number'}
-              {type === 'email' && 'Email Address'}
+              {type === 'text' && 'Metin'}
+              {type === 'phone' && 'Telefon Numarası'}
+              {type === 'email' && 'E-posta Adresi'}
             </label>
             <input
               type={type === 'email' ? 'email' : type === 'phone' ? 'tel' : 'text'}
@@ -91,10 +91,10 @@ export default function QRGenerator({ isPremium }: QRGeneratorProps) {
               onChange={(e) => setContent(e.target.value)}
               onKeyDown={(e) => e.key === 'Enter' && handleGenerate()}
               placeholder={
-                type === 'url' ? 'https://example.com'
-                : type === 'text' ? 'Your text here'
-                : type === 'phone' ? '+1234567890'
-                : 'email@example.com'
+                type === 'url' ? 'https://ornek.com'
+                : type === 'text' ? 'Metninizi buraya yazın'
+                : type === 'phone' ? '+905551234567'
+                : 'ornek@email.com'
               }
               className="w-full px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-gray-900 dark:focus:ring-gray-100 focus:border-transparent dark:bg-gray-700 dark:text-white transition-all"
             />
@@ -118,7 +118,7 @@ export default function QRGenerator({ isPremium }: QRGeneratorProps) {
             disabled={loading || !content.trim()}
             className="w-full bg-gray-900 dark:bg-white text-white dark:text-gray-900 font-medium py-3 px-6 rounded-lg transition-all hover:bg-gray-800 dark:hover:bg-gray-100 disabled:opacity-50 disabled:cursor-not-allowed"
           >
-            {loading ? 'Generating...' : 'Generate'}
+            {loading ? 'Oluşturuluyor...' : 'Oluştur'}
           </button>
 
           {/* Error Message */}
@@ -140,7 +140,7 @@ export default function QRGenerator({ isPremium }: QRGeneratorProps) {
         ) : (
           <div className="flex flex-col items-center justify-center h-full min-h-[400px] text-center">
             <div className="w-64 h-64 border-2 border-dashed border-gray-300 dark:border-gray-600 rounded-lg flex items-center justify-center">
-              <p className="text-gray-400 dark:text-gray-500 text-sm">QR code will appear here</p>
+              <p className="text-gray-400 dark:text-gray-500 text-sm">QR kod burada görünecek</p>
             </div>
           </div>
         )}

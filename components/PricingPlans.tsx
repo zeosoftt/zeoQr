@@ -21,11 +21,11 @@ export default function PricingPlans() {
       if (data.url) {
         window.location.href = data.url
       } else {
-        alert('Failed to create checkout session')
+        alert('Ödeme oturumu oluşturulamadı')
       }
     } catch (error) {
       console.error('Checkout error:', error)
-      alert('Failed to start checkout')
+      alert('Ödeme başlatılamadı')
     } finally {
       setLoading(null)
     }
@@ -33,29 +33,29 @@ export default function PricingPlans() {
 
   const plans = [
     {
-      name: 'Monthly',
+      name: 'Aylık',
       price: '$9.99',
-      period: 'per month',
+      period: 'aylık',
       features: [
-        'No ads',
-        'Logo upload in QR codes',
-        'Custom colors',
-        'Scan analytics',
-        'Bulk QR generation',
-        'Priority support',
+        'Reklam yok',
+        'QR kodlara logo yükleme',
+        'Özel renkler',
+        'Tarama analitiği',
+        'Toplu QR üretimi',
+        'Öncelikli destek',
       ],
       planType: 'monthly' as const,
       popular: true,
     },
     {
-      name: 'Lifetime',
+      name: 'Yaşam Boyu',
       price: '$99',
-      period: 'one-time',
+      period: 'tek seferlik',
       features: [
-        'Everything in Monthly',
-        'Lifetime access',
-        'All future features',
-        'No recurring payments',
+        'Aylık planın tüm özellikleri',
+        'Yaşam boyu erişim',
+        'Tüm gelecek özellikler',
+        'Tekrarlayan ödeme yok',
       ],
       planType: 'lifetime' as const,
       popular: false,
@@ -73,7 +73,7 @@ export default function PricingPlans() {
         >
           {plan.popular && (
             <div className="bg-primary-500 text-white text-sm font-semibold px-3 py-1 rounded-full inline-block mb-4">
-              Most Popular
+              En Popüler
             </div>
           )}
           <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-2">
@@ -100,7 +100,7 @@ export default function PricingPlans() {
             disabled={loading === plan.planType}
             className="w-full bg-primary-600 hover:bg-primary-700 text-white font-semibold py-3 px-6 rounded-lg transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
           >
-            {loading === plan.planType ? 'Processing...' : 'Get Started'}
+            {loading === plan.planType ? 'İşleniyor...' : 'Başla'}
           </button>
         </div>
       ))}

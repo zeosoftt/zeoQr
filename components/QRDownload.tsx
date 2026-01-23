@@ -15,7 +15,7 @@ export default function QRDownload({ dataUrl, isPremium }: QRDownloadProps) {
     // Show rewarded video ad for free users before download
     if (!isPremium && shouldShowAds(false)) {
       const showAd = window.confirm(
-        'Watch a short ad to download? (Click OK to skip ad for now)'
+        'İndirmek için kısa bir reklam izlemek ister misiniz? (Şimdilik atlamak için Tamam\'a tıklayın)'
       )
       if (showAd) {
         // In production, integrate rewarded video ad here
@@ -39,7 +39,7 @@ export default function QRDownload({ dataUrl, isPremium }: QRDownloadProps) {
         className="bg-gray-900 dark:bg-white text-white dark:text-gray-900 font-medium py-2.5 px-6 rounded-lg transition-all hover:bg-gray-800 dark:hover:bg-gray-100 flex items-center gap-2 text-sm"
       >
         <span>⬇</span>
-        <span>Download PNG</span>
+        <span>PNG İndir</span>
       </button>
     </div>
   )

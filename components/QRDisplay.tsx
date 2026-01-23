@@ -16,7 +16,7 @@ export default function QRDisplay({ dataUrl }: QRDisplayProps) {
         />
       </div>
       <p className="text-xs text-gray-500 dark:text-gray-400 text-center font-light">
-        Scan with any QR code reader
+        Herhangi bir QR kod okuyucu ile tarayın
       </p>
     </div>
   )

@@ -33,13 +33,13 @@ export default function PremiumFeatures({
   return (
     <div className="border-t border-gray-200 dark:border-gray-700 pt-6 space-y-4">
       <h3 className="text-sm font-medium text-gray-700 dark:text-gray-300">
-        Customization
+        Özelleştirme
       </h3>
 
       {/* Logo Upload */}
       <div>
         <label className="block text-xs font-medium text-gray-600 dark:text-gray-400 mb-2">
-          Logo (optional)
+          Logo (isteğe bağlı)
         </label>
         <input
           type="file"
@@ -55,7 +55,7 @@ export default function PremiumFeatures({
               onClick={() => onLogoChange(null)}
               className="mt-1 text-xs text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-300"
             >
-              Remove
+              Kaldır
             </button>
           </div>
         )}
@@ -65,7 +65,7 @@ export default function PremiumFeatures({
       <div className="grid grid-cols-2 gap-3">
         <div>
           <label className="block text-xs font-medium text-gray-600 dark:text-gray-400 mb-2">
-            Dark
+            Koyu
           </label>
           <div className="flex gap-2">
             <input
@@ -85,7 +85,7 @@ export default function PremiumFeatures({
         </div>
         <div>
           <label className="block text-xs font-medium text-gray-600 dark:text-gray-400 mb-2">
-            Light
+            Açık
           </label>
           <div className="flex gap-2">
             <input

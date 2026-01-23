@@ -35,11 +35,11 @@ export default function AnalyticsDashboard() {
   }, [])
 
   if (loading) {
-    return <div className="text-center py-12">Loading analytics...</div>
+    return <div className="text-center py-12">Analitikler yükleniyor...</div>
   }
 
   if (!data) {
-    return <div className="text-center py-12 text-red-600">Failed to load analytics</div>
+    return <div className="text-center py-12 text-red-600">Analitikler yüklenemedi</div>
   }
 
   return (
@@ -48,7 +48,7 @@ export default function AnalyticsDashboard() {
       <div className="grid md:grid-cols-2 gap-6">
         <div className="bg-white dark:bg-slate-800 rounded-lg shadow p-6">
           <h3 className="text-sm font-medium text-gray-600 dark:text-gray-400 mb-2">
-            Total QR Codes
+            Toplam QR Kod
           </h3>
           <p className="text-3xl font-bold text-gray-900 dark:text-white">
             {data.totalQRCodes}
@@ -56,7 +56,7 @@ export default function AnalyticsDashboard() {
         </div>
         <div className="bg-white dark:bg-slate-800 rounded-lg shadow p-6">
           <h3 className="text-sm font-medium text-gray-600 dark:text-gray-400 mb-2">
-            Total Scans
+            Toplam Tarama
           </h3>
           <p className="text-3xl font-bold text-gray-900 dark:text-white">
             {data.totalScans}
@@ -68,7 +68,7 @@ export default function AnalyticsDashboard() {
       <div className="bg-white dark:bg-slate-800 rounded-lg shadow overflow-hidden">
         <div className="px-6 py-4 border-b border-gray-200 dark:border-gray-700">
           <h3 className="text-lg font-semibold text-gray-900 dark:text-white">
-            Your QR Codes
+            QR Kodlarınız
           </h3>
         </div>
         <div className="overflow-x-auto">
@@ -76,16 +76,16 @@ export default function AnalyticsDashboard() {
             <thead className="bg-gray-50 dark:bg-slate-700">
               <tr>
                 <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">
-                  Content
+                  İçerik
                 </th>
                 <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">
-                  Type
+                  Tip
                 </th>
                 <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">
-                  Scans
+                  Tarama
                 </th>
                 <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">
-                  Created
+                  Oluşturulma
                 </th>
               </tr>
             </thead>
@@ -93,7 +93,7 @@ export default function AnalyticsDashboard() {
               {data.qrCodes.length === 0 ? (
                 <tr>
                   <td colSpan={4} className="px-6 py-8 text-center text-gray-500 dark:text-gray-400">
-                    No QR codes generated yet
+                    Henüz QR kod oluşturulmadı
                   </td>
                 </tr>
               ) : (

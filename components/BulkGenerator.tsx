@@ -33,14 +33,14 @@ export default function BulkGenerator() {
         const parsed: BulkItem[] = lines.map((line, idx) => {
           const parts = line.split(',')
           if (parts.length < 2) {
-            throw new Error(`Line ${idx + 1}: Invalid format. Expected: type,content`)
+            throw new Error(`Satır ${idx + 1}: Geçersiz format. Beklenen: tip,içerik`)
           }
           
           const type = parts[0].trim().toLowerCase() as QRType
           const content = parts.slice(1).join(',').trim()
 
           if (!['url', 'text', 'phone', 'email'].includes(type)) {
-            throw new Error(`Line ${idx + 1}: Invalid type. Must be: url, text, phone, or email`)
+            throw new Error(`Satır ${idx + 1}: Geçersiz tip. url, text, phone veya email olmalı`)
           }
 
           return { type, content }
@@ -48,7 +48,7 @@ export default function BulkGenerator() {
 
         setItems(parsed)
       } catch (err) {
-        setError(err instanceof Error ? err.message : 'Failed to parse CSV')
+        setError(err instanceof Error ? err.message : 'CSV ayrıştırılamadı')
         setItems([])
       }
     }
@@ -57,7 +57,7 @@ export default function BulkGenerator() {
 
   const handleGenerate = async () => {
     if (items.length === 0) {
-      setError('No items to generate')
+      setError('Oluşturulacak öğe yok')
       return
     }
 
@@ -75,7 +75,7 @@ export default function BulkGenerator() {
       const data = await response.json()
 
       if (!response.ok) {
-        throw new Error(data.error || 'Failed to generate QR codes')
+        throw new Error(data.error || 'QR kodlar oluşturulamadı')
       }
 
       // Generate QR code images for each item
@@ -96,7 +96,7 @@ export default function BulkGenerator() {
 
       setItems(generated)
     } catch (err) {
-      setError(err instanceof Error ? err.message : 'Failed to generate QR codes')
+      setError(err instanceof Error ? err.message : 'QR kodlar oluşturulamadı')
     } finally {
       setLoading(false)
     }
@@ -120,12 +120,12 @@ export default function BulkGenerator() {
       <div className="space-y-6">
         <div>
           <h2 className="text-lg font-semibold text-gray-900 dark:text-white mb-2">
-            Upload CSV File
+            CSV Dosyası Yükle
           </h2>
           <p className="text-sm text-gray-600 dark:text-gray-400 mb-4">
-            Format: type,content (one per line)
+            Format: tip,içerik (her satırda bir)
             <br />
-            Example: url,https://example.com
+            Örnek: url,https://ornek.com
           </p>
           <input
             type="file"
@@ -139,7 +139,7 @@ export default function BulkGenerator() {
           <div>
             <div className="flex justify-between items-center mb-4">
               <p className="text-sm text-gray-600 dark:text-gray-400">
-                {items.length} items loaded
+                {items.length} öğe yüklendi
               </p>
               <div className="flex gap-2">
                 <button
@@ -147,14 +147,14 @@ export default function BulkGenerator() {
                   disabled={loading}
                   className="bg-primary-600 hover:bg-primary-700 text-white font-semibold py-2 px-4 rounded-lg transition-colors disabled:opacity-50"
                 >
-                  {loading ? 'Generating...' : 'Generate All'}
+                  {loading ? 'Oluşturuluyor...' : 'Tümünü Oluştur'}
                 </button>
                 {items[0]?.qrDataUrl && (
                   <button
                     onClick={handleDownloadAll}
                     className="bg-green-600 hover:bg-green-700 text-white font-semibold py-2 px-4 rounded-lg transition-colors"
                   >
-                    Download All
+                    Tümünü İndir
                   </button>
                 )}
               </div>
@@ -181,7 +181,7 @@ export default function BulkGenerator() {
                   />
                 ) : (
                   <div className="w-full aspect-square bg-gray-100 dark:bg-gray-700 rounded flex items-center justify-center text-xs text-gray-400">
-                    Not generated
+                    Oluşturulmadı
                   </div>
                 )}
                 <p className="text-xs text-gray-600 dark:text-gray-400 truncate">

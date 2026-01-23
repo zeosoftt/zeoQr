@@ -10,9 +10,9 @@ interface QRTypeSelectorProps {
 export default function QRTypeSelector({ type, onTypeChange }: QRTypeSelectorProps) {
   const types: { value: QRType; label: string; icon: string }[] = [
     { value: 'url', label: 'URL', icon: '🔗' },
-    { value: 'text', label: 'Text', icon: '📝' },
-    { value: 'phone', label: 'Phone', icon: '📞' },
-    { value: 'email', label: 'Email', icon: '✉️' },
+    { value: 'text', label: 'Metin', icon: '📝' },
+    { value: 'phone', label: 'Telefon', icon: '📞' },
+    { value: 'email', label: 'E-posta', icon: '✉️' },
   ]
 
   return (

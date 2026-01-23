@@ -5,8 +5,8 @@ import { redirect } from 'next/navigation'
 import { Metadata } from 'next'
 
 export const metadata: Metadata = {
-  title: 'Bulk QR Code Generator - ZeoQR Premium',
-  description: 'Generate multiple QR codes at once from CSV upload. Premium feature.',
+  title: 'Toplu QR Kod Oluşturucu - ZeoQR Premium',
+  description: 'CSV yüklemesi ile aynı anda birden fazla QR kod oluşturun. Premium özellik.',
 }
 
 export default async function BulkPage() {
@@ -21,7 +21,7 @@ export default async function BulkPage() {
     <main className="min-h-screen bg-gradient-to-b from-white to-gray-50 dark:from-slate-900 dark:to-slate-800">
       <div className="container mx-auto px-4 py-8 max-w-4xl">
         <h1 className="text-3xl font-bold text-gray-900 dark:text-white mb-6">
-          Bulk QR Code Generator
+          Toplu QR Kod Oluşturucu
         </h1>
         <BulkGenerator />
       </div>
