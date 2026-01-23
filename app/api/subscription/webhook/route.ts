@@ -14,9 +14,7 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ received: true })
     }
 
-    const stripe = new Stripe(process.env.STRIPE_SECRET_KEY, {
-      apiVersion: '2024-06-20',
-    })
+    const stripe = new Stripe(process.env.STRIPE_SECRET_KEY)
 
     const body = await request.text()
     
