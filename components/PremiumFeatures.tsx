@@ -49,6 +49,7 @@ export default function PremiumFeatures({
         />
         {logoUrl && (
           <div className="mt-2">
+            {/* eslint-disable-next-line @next/next/no-img-element */}
             <img src={logoUrl} alt="Logo preview" className="w-12 h-12 object-contain rounded" />
             <button
               onClick={() => onLogoChange(null)}

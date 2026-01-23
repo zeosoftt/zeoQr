@@ -173,6 +173,7 @@ export default function BulkGenerator() {
             {items.map((item, idx) => (
               <div key={idx} className="border border-gray-200 dark:border-gray-700 rounded-lg p-3">
                 {item.qrDataUrl ? (
+                  /* eslint-disable-next-line @next/next/no-img-element */
                   <img
                     src={item.qrDataUrl}
                     alt={`QR ${idx + 1}`}

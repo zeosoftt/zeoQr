@@ -8,6 +8,7 @@ export default function QRDisplay({ dataUrl }: QRDisplayProps) {
   return (
     <div className="flex flex-col items-center space-y-4">
       <div className="bg-white p-6 rounded-lg border border-gray-200 dark:border-gray-700">
+        {/* eslint-disable-next-line @next/next/no-img-element */}
         <img
           src={dataUrl}
           alt="Generated QR Code"
