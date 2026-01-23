@@ -49,17 +49,25 @@
 
 ### Yöntem A: Vercel CLI (Önerilen)
 
+**⚠️ ÖNEMLİ:** Migration sadece production'da (Supabase) çalıştırılmalı! Local'de çalıştırma.
+
 PowerShell'de:
 
 ```powershell
-# 1. Vercel'e bağla
-npx vercel link --yes
+# 1. Vercel'e bağla (zaten yapıldı)
+# npx vercel link --yes
 
-# 2. Environment variables'ı çek
+# 2. Environment variables'ı çek (DATABASE_URL Supabase connection string olmalı)
 npx vercel env pull
 
-# 3. Migration'ı deploy et
+# 3. PostgreSQL schema'ya geçici olarak geç
+Copy-Item prisma\schema.production.prisma prisma\schema.prisma
+
+# 4. Migration'ı deploy et
 npx prisma migrate deploy
+
+# 5. SQLite schema'ya geri dön (local development için)
+Copy-Item prisma\schema.sqlite.backup.prisma prisma\schema.prisma
 ```
 
 ### Yöntem B: Vercel Dashboard
