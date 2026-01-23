@@ -1,0 +1,58 @@
+// Minimal schema for QR code tracking and premium subscriptions
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+// Anonymous session tracking
+model Session {
+  id        String   @id @default(uuid())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  
+  qrCodes QRCode[]
+  
+  @@index([createdAt])
+}
+
+// QR code records (minimal data)
+model QRCode {
+  id         String   @id @default(uuid())
+  qrHash     String   @unique // Hash of QR content for deduplication
+  content    String   // Original content (URL, text, phone, email)
+  type       String   // url, text, phone, email
+  scanCount  Int      @default(0)
+  createdAt  DateTime @default(now())
+  
+  sessionId  String?
+  session    Session? @relation(fields: [sessionId], references: [id], onDelete: Cascade)
+  
+  // Premium features
+  logoUrl    String?  // Logo inside QR (premium)
+  colorDark  String?  // Custom dark color (premium)
+  colorLight String?  // Custom light color (premium)
+  
+  @@index([qrHash])
+  @@index([createdAt])
+  @@index([sessionId])
+}
+
+// Premium subscriptions
+model Subscription {
+  id            String   @id @default(uuid())
+  sessionId     String   @unique // Links to anonymous session
+  provider      String   // stripe, lemonsqueezy
+  providerId    String   // External subscription ID
+  status        String   // active, cancelled, expired
+  planType      String   // monthly, lifetime
+  expiresAt     DateTime?
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+  
+  @@index([sessionId])
+  @@index([status])
+}
