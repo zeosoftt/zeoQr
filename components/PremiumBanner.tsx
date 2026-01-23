@@ -7,7 +7,7 @@ export default function PremiumBanner() {
     <div className="bg-gray-900 dark:bg-white text-white dark:text-gray-900 rounded-xl border border-gray-200 dark:border-gray-700 p-6 mb-8">
       <div className="flex flex-col md:flex-row items-center justify-between gap-4">
         <div>
-          <h2 className="text-lg font-medium mb-1">✨ Premium'a Geç</h2>
+          <h2 className="text-lg font-medium mb-1">✨ Premium&apos;a Geç</h2>
           <p className="text-sm text-gray-300 dark:text-gray-600 font-light">
             Reklamları kaldır, logo ekle, özel renkler, analitik & toplu üretim
           </p>

@@ -4,7 +4,7 @@ import { Suspense } from 'react'
 
 export const metadata: Metadata = {
   title: 'Fiyatlandırma - ZeoQR Premium',
-  description: 'Reklamsız deneyim, özel QR kodlar, analitik ve toplu üretim için ZeoQR Premium\'a yükseltin.',
+  description: 'Reklamsız deneyim, özel QR kodlar, analitik ve toplu üretim için ZeoQR Premium&apos;a yükseltin.',
 }
 
 export default async function PricingPage({
@@ -21,7 +21,7 @@ export default async function PricingPage({
             Planınızı Seçin
           </h1>
           <p className="text-lg text-gray-600 dark:text-gray-300">
-            Premium özelliklerin kilidini açın ve ZeoQR'nin gelişimini destekleyin
+            Premium özelliklerin kilidini açın ve ZeoQR&apos;nin gelişimini destekleyin
           </p>
         </div>
 
