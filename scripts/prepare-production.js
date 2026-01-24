@@ -15,14 +15,26 @@ const isPostgres = process.env.DATABASE_URL && (
 )
 
 if (isProduction || isPostgres) {
-  console.log('Preparing production schema (PostgreSQL)...')
+  console.log('🔧 Preparing production schema (PostgreSQL)...')
   if (!fs.existsSync(productionSchemaPath)) {
-    console.warn('Warning: schema.production.prisma not found, using current schema')
+    console.warn('⚠️  Warning: schema.production.prisma not found, using current schema')
     process.exit(0)
   }
+  
+  // Backup current schema if it's SQLite
+  const currentSchema = fs.existsSync(mainSchemaPath) 
+    ? fs.readFileSync(mainSchemaPath, 'utf8')
+    : ''
+  
+  if (currentSchema.includes('provider = "sqlite"')) {
+    const backupPath = path.join(__dirname, '../prisma/schema.sqlite.backup.prisma')
+    fs.writeFileSync(backupPath, currentSchema)
+    console.log('✅ Backed up SQLite schema')
+  }
+  
   const productionSchema = fs.readFileSync(productionSchemaPath, 'utf8')
   fs.writeFileSync(mainSchemaPath, productionSchema)
-  console.log('Production schema (PostgreSQL) activated!')
+  console.log('✅ Production schema (PostgreSQL) activated!')
 } else {
-  console.log('Using development schema (SQLite)')
+  console.log('ℹ️  Using development schema (SQLite)')
 }
