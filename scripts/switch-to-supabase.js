@@ -3,6 +3,11 @@ const fs = require('fs')
 const path = require('path')
 const { execSync } = require('child_process')
 
+// Helper function to wait
+function wait(ms) {
+  return new Promise(resolve => setTimeout(resolve, ms))
+}
+
 const productionSchemaPath = path.join(__dirname, '../prisma/schema.production.prisma')
 const mainSchemaPath = path.join(__dirname, '../prisma/schema.prisma')
 const sqliteBackupPath = path.join(__dirname, '../prisma/schema.sqlite.backup.prisma')
@@ -51,18 +56,48 @@ fs.writeFileSync(mainSchemaPath, productionSchema)
 console.log('✅ Switched schema to PostgreSQL\n')
 
 // Regenerate Prisma Client
-try {
-  console.log('🔄 Regenerating Prisma Client for PostgreSQL...')
-  execSync('npx prisma generate', { 
-    stdio: 'inherit',
-    cwd: path.join(__dirname, '..')
-  })
-  console.log('\n✅ Prisma Client regenerated successfully!')
-  console.log('\n🎉 Local development is now using Supabase PostgreSQL!')
-  console.log('\n💡 To switch back to SQLite, run:')
-  console.log('   Copy-Item prisma\\schema.sqlite.backup.prisma prisma\\schema.prisma')
-  console.log('   npx prisma generate')
-} catch (error) {
-  console.error('\n❌ Failed to generate Prisma Client:', error.message)
-  process.exit(1)
+let retries = 3
+let success = false
+
+async function regeneratePrisma() {
+  try {
+    console.log('🔄 Regenerating Prisma Client for PostgreSQL...')
+    execSync('npx prisma generate', { 
+      stdio: 'inherit',
+      cwd: path.join(__dirname, '..')
+    })
+    console.log('\n✅ Prisma Client regenerated successfully!')
+    success = true
+  } catch (error) {
+    retries--
+    if (retries > 0) {
+      console.log(`\n⚠️  Retrying... (${retries} attempts left)`)
+      console.log('💡 Make sure development server is stopped!')
+      // Wait 2 seconds before retry
+      await wait(2000)
+    } else {
+      console.error('\n❌ Failed to generate Prisma Client after multiple attempts')
+      console.error('Error:', error.message)
+      console.log('\n💡 Try manually:')
+      console.log('   1. Stop development server (Ctrl+C)')
+      console.log('   2. Close any IDE/editor that might be using Prisma files')
+      console.log('   3. Run: npx prisma generate')
+      process.exit(1)
+    }
+  }
 }
+
+  if (success) {
+    console.log('\n🎉 Local development is now using Supabase PostgreSQL!')
+    console.log('\n💡 To switch back to SQLite, run:')
+    console.log('   npm run db:switch-sqlite')
+  }
+}
+
+switchToSupabase().catch(error => {
+  console.error('Unexpected error:', error)
+  process.exit(1)
+})
+}
+
+regeneratePrisma()
