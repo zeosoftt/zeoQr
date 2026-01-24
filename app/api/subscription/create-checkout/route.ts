@@ -3,6 +3,8 @@ import { getOrCreateSession } from '@/lib/session'
 import { z } from 'zod'
 import Stripe from 'stripe'
 
+export const dynamic = 'force-dynamic'
+
 const checkoutSchema = z.object({
   planType: z.enum(['monthly', 'lifetime']),
   provider: z.enum(['stripe', 'lemonsqueezy']).optional().default('stripe'),

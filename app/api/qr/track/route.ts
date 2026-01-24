@@ -4,6 +4,8 @@ import { db } from '@/lib/db'
 import { generateQRHash } from '@/lib/qr'
 import { z } from 'zod'
 
+export const dynamic = 'force-dynamic'
+
 const trackSchema = z.object({
   qrHash: z.string(),
   content: z.string(),

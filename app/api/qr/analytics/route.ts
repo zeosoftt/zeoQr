@@ -3,6 +3,8 @@ import { getSessionId } from '@/lib/session'
 import { db } from '@/lib/db'
 import { checkPremiumStatus } from '@/lib/premium'
 
+export const dynamic = 'force-dynamic'
+
 export async function GET(request: NextRequest) {
   try {
     const sessionId = await getSessionId()

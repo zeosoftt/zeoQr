@@ -5,6 +5,8 @@ import { checkPremiumStatus } from '@/lib/premium'
 import { generateQRHash, formatContentForQR, QRType } from '@/lib/qr'
 import { z } from 'zod'
 
+export const dynamic = 'force-dynamic'
+
 const bulkSchema = z.object({
   items: z.array(
     z.object({
