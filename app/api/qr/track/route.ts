@@ -42,16 +42,21 @@ export async function POST(request: NextRequest) {
     return NextResponse.json({ success: true, qrId: qrCode.id })
   } catch (error) {
     console.error('QR tracking error:', error)
+    console.error('Error stack:', error instanceof Error ? error.stack : 'No stack')
+    console.error('DATABASE_URL:', process.env.DATABASE_URL ? `${process.env.DATABASE_URL.substring(0, 30)}...` : 'NOT SET')
     
-    // Return detailed error in development, generic in production
-    const errorMessage = process.env.NODE_ENV === 'development' 
-      ? error instanceof Error ? error.message : String(error)
-      : 'Failed to track QR code'
+    const errorMessage = error instanceof Error ? error.message : String(error)
+    const errorStack = error instanceof Error ? error.stack : undefined
     
+    // Always return detailed error for debugging
     return NextResponse.json(
       { 
         error: 'Failed to track QR code',
-        details: process.env.NODE_ENV === 'development' ? errorMessage : undefined
+        message: errorMessage,
+        stack: process.env.NODE_ENV === 'development' ? errorStack : undefined,
+        databaseUrl: process.env.DATABASE_URL ? `${process.env.DATABASE_URL.substring(0, 30)}...` : 'NOT SET',
+        nodeEnv: process.env.NODE_ENV,
+        vercel: process.env.VERCEL,
       },
       { status: 500 }
     )
