@@ -22,6 +22,47 @@ if (fs.existsSync(envLocalPath)) {
   })
 }
 
+// Switch to PostgreSQL schema for testing
+const schemaPath = path.join(__dirname, '../prisma/schema.prisma')
+const productionSchemaPath = path.join(__dirname, '../prisma/schema.production.prisma')
+const sqliteBackupPath = path.join(__dirname, '../prisma/schema.sqlite.backup.prisma')
+
+let schemaSwitched = false
+let originalSchema = null
+
+function switchToPostgreSQL() {
+  if (!fs.existsSync(productionSchemaPath)) {
+    console.error('❌ schema.production.prisma not found!')
+    process.exit(1)
+  }
+  
+  // Backup current schema
+  if (fs.existsSync(schemaPath)) {
+    originalSchema = fs.readFileSync(schemaPath, 'utf8')
+    // Only backup if it's SQLite
+    if (originalSchema.includes('provider = "sqlite"')) {
+      fs.writeFileSync(sqliteBackupPath, originalSchema)
+    }
+  }
+  
+  // Switch to PostgreSQL schema
+  const productionSchema = fs.readFileSync(productionSchemaPath, 'utf8')
+  fs.writeFileSync(schemaPath, productionSchema)
+  schemaSwitched = true
+  console.log('✅ Switched to PostgreSQL schema for testing\n')
+}
+
+function restoreSchema() {
+  if (schemaSwitched && originalSchema) {
+    fs.writeFileSync(schemaPath, originalSchema)
+    console.log('\n✅ Restored SQLite schema')
+  } else if (fs.existsSync(sqliteBackupPath)) {
+    const sqliteSchema = fs.readFileSync(sqliteBackupPath, 'utf8')
+    fs.writeFileSync(schemaPath, sqliteSchema)
+    console.log('\n✅ Restored SQLite schema from backup')
+  }
+}
+
 async function testConnection() {
   console.log('🔍 Testing Supabase connection...\n')
   
@@ -51,8 +92,37 @@ async function testConnection() {
 
   console.log('✅ PostgreSQL connection string format is correct\n')
 
-  // Try to connect
-  const prisma = new PrismaClient({
+  // Switch to PostgreSQL schema
+  switchToPostgreSQL()
+
+  // Regenerate Prisma Client with PostgreSQL schema
+  const { execSync } = require('child_process')
+  try {
+    console.log('🔄 Regenerating Prisma Client for PostgreSQL...')
+    // Clear Prisma Client cache
+    const prismaClientPath = path.join(__dirname, '../node_modules/@prisma/client')
+    if (fs.existsSync(prismaClientPath)) {
+      // Delete generated client to force regeneration
+      const generatedPath = path.join(prismaClientPath, 'index.js')
+      if (fs.existsSync(generatedPath)) {
+        // Clear require cache
+        delete require.cache[require.resolve('@prisma/client')]
+      }
+    }
+    execSync('npx prisma generate', { stdio: 'inherit', cwd: path.join(__dirname, '..') })
+    console.log('✅ Prisma Client regenerated\n')
+    
+    // Clear require cache and reload
+    delete require.cache[require.resolve('@prisma/client')]
+  } catch (error) {
+    console.error('❌ Failed to regenerate Prisma Client')
+    restoreSchema()
+    process.exit(1)
+  }
+
+  // Try to connect - reload PrismaClient after regeneration
+  const { PrismaClient: NewPrismaClient } = require('@prisma/client')
+  const prisma = new NewPrismaClient({
     log: ['error', 'warn'],
   })
 
@@ -119,6 +189,7 @@ async function testConnection() {
     process.exit(1)
   } finally {
     await prisma.$disconnect()
+    restoreSchema()
   }
 }
 
