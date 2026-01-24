@@ -13,6 +13,7 @@
     "db:studio": "prisma studio",
     "db:switch-supabase": "node scripts/switch-to-supabase.js",
     "db:switch-sqlite": "node scripts/switch-to-sqlite.js",
+    "env:pull": "node scripts/pull-vercel-env.js",
     "postinstall": "node scripts/postinstall.js"
   },
   "dependencies": {
