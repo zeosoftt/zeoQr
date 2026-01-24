@@ -1,15 +1,12 @@
-// Production schema for PostgreSQL (Vercel)
-// Copy this to schema.prisma before deploying to production
-// Or use a build script to switch automatically
-
 // Minimal schema for QR code tracking and premium subscriptions
 generator client {
   provider = "prisma-client-js"
 }
 
 datasource db {
-  provider = "postgresql"
+  provider = "sqlite"
   url      = env("DATABASE_URL")
+  // For production (Vercel), change provider to "postgresql" and use PostgreSQL DATABASE_URL
 }
 
 // Anonymous session tracking
