@@ -42,8 +42,17 @@ export async function POST(request: NextRequest) {
     return NextResponse.json({ success: true, qrId: qrCode.id })
   } catch (error) {
     console.error('QR tracking error:', error)
+    
+    // Return detailed error in development, generic in production
+    const errorMessage = process.env.NODE_ENV === 'development' 
+      ? error instanceof Error ? error.message : String(error)
+      : 'Failed to track QR code'
+    
     return NextResponse.json(
-      { error: 'Failed to track QR code' },
+      { 
+        error: 'Failed to track QR code',
+        details: process.env.NODE_ENV === 'development' ? errorMessage : undefined
+      },
       { status: 500 }
     )
   }
