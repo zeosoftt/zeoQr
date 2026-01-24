@@ -3,11 +3,6 @@ const fs = require('fs')
 const path = require('path')
 const { execSync } = require('child_process')
 
-// Helper function to wait
-function wait(ms) {
-  return new Promise(resolve => setTimeout(resolve, ms))
-}
-
 const productionSchemaPath = path.join(__dirname, '../prisma/schema.production.prisma')
 const mainSchemaPath = path.join(__dirname, '../prisma/schema.prisma')
 const sqliteBackupPath = path.join(__dirname, '../prisma/schema.sqlite.backup.prisma')
@@ -55,12 +50,22 @@ const productionSchema = fs.readFileSync(productionSchemaPath, 'utf8')
 fs.writeFileSync(mainSchemaPath, productionSchema)
 console.log('✅ Switched schema to PostgreSQL\n')
 
-// Regenerate Prisma Client
+// Regenerate Prisma Client with retry logic
 let retries = 3
 let success = false
 
-async function regeneratePrisma() {
+for (let i = 0; i < retries; i++) {
   try {
+    if (i > 0) {
+      console.log(`\n⚠️  Retrying... (${retries - i} attempts left)`)
+      console.log('💡 Make sure development server is stopped!')
+      // Wait 2 seconds before retry (synchronous wait)
+      const start = Date.now()
+      while (Date.now() - start < 2000) {
+        // Busy wait
+      }
+    }
+    
     console.log('🔄 Regenerating Prisma Client for PostgreSQL...')
     execSync('npx prisma generate', { 
       stdio: 'inherit',
@@ -68,14 +73,9 @@ async function regeneratePrisma() {
     })
     console.log('\n✅ Prisma Client regenerated successfully!')
     success = true
+    break
   } catch (error) {
-    retries--
-    if (retries > 0) {
-      console.log(`\n⚠️  Retrying... (${retries} attempts left)`)
-      console.log('💡 Make sure development server is stopped!')
-      // Wait 2 seconds before retry
-      await wait(2000)
-    } else {
+    if (i === retries - 1) {
       console.error('\n❌ Failed to generate Prisma Client after multiple attempts')
       console.error('Error:', error.message)
       console.log('\n💡 Try manually:')
@@ -87,17 +87,8 @@ async function regeneratePrisma() {
   }
 }
 
-  if (success) {
-    console.log('\n🎉 Local development is now using Supabase PostgreSQL!')
-    console.log('\n💡 To switch back to SQLite, run:')
-    console.log('   npm run db:switch-sqlite')
-  }
+if (success) {
+  console.log('\n🎉 Local development is now using Supabase PostgreSQL!')
+  console.log('\n💡 To switch back to SQLite, run:')
+  console.log('   npm run db:switch-sqlite')
 }
-
-switchToSupabase().catch(error => {
-  console.error('Unexpected error:', error)
-  process.exit(1)
-})
-}
-
-regeneratePrisma()
