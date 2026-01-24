@@ -11,6 +11,8 @@
     "lint": "next lint",
     "db:push": "prisma db push",
     "db:studio": "prisma studio",
+    "db:switch-supabase": "node scripts/switch-to-supabase.js",
+    "db:switch-sqlite": "node scripts/switch-to-sqlite.js",
     "postinstall": "node scripts/postinstall.js"
   },
   "dependencies": {
