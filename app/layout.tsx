@@ -3,6 +3,7 @@ import { Inter } from 'next/font/google'
 import Script from 'next/script'
 import './globals.css'
 import Navigation from '@/components/Navigation'
+import ConsentBanner from '@/components/ConsentBanner'
 
 const GA_MEASUREMENT_ID = 'G-CLTZ9TL3JM'
 const GTM_ID = 'GTM-5PM7M253'
@@ -70,16 +71,24 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
           src={`https://www.googletagmanager.com/gtag/js?id=${GA_MEASUREMENT_ID}`}
           strategy="afterInteractive"
         />
-        <Script id="google-analytics" strategy="afterInteractive">
+        <Script id="google-consent-and-analytics" strategy="afterInteractive">
           {`
             window.dataLayer = window.dataLayer || [];
             function gtag(){dataLayer.push(arguments);}
             gtag('js', new Date());
+            gtag('consent', 'default', {
+              ad_storage: 'denied',
+              analytics_storage: 'denied',
+              ad_user_data: 'denied',
+              ad_personalization: 'denied',
+              wait_for_update: 500
+            });
             gtag('config', '${GA_MEASUREMENT_ID}');
           `}
         </Script>
         <Navigation />
         {children}
+        <ConsentBanner />
       </body>
     </html>
   )

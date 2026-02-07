@@ -30,6 +30,10 @@ const faqs = [
     question: 'Verilerim güvende mi?',
     answer: 'QR kod oluştururken girdiğiniz URL, metin veya iletişim bilgileri yalnızca o anki oturumda işlenir. Hesap zorunlu olmadığı için kişisel veri toplama minimumda tutulur. Oluşturduğunuz kodlar isterseniz yalnızca cihazınıza indirilir.',
   },
+  {
+    question: 'Çerez ve rıza mesajı nedir?',
+    answer: 'AEA, İngiltere ve İsviçre yükümlülükleri kapsamında sitemiz, deneyiminizi iyileştirmek ve reklam sunmak için çerez kullanımı konusunda sizden rıza alır. Sayfa açıldığında "İzin ver", "İzin verme" veya "Seçenekleri yönet" ile reklam ve analitik çerezlerini ayrı ayrı tercih edebilirsiniz. Tercihiniz bir yıl süreyle saklanır ve istediğiniz zaman değiştirilebilir.',
+  },
 ]
 
 export default function SSSPage() {
