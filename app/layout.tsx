@@ -1,9 +1,11 @@
 import type { Metadata } from 'next'
+import dynamic from 'next/dynamic'
 import { Inter } from 'next/font/google'
 import Script from 'next/script'
 import './globals.css'
 import Navigation from '@/components/Navigation'
-import ConsentBanner from '@/components/ConsentBanner'
+
+const ConsentBanner = dynamic(() => import('@/components/ConsentBanner'), { ssr: false })
 
 const GA_MEASUREMENT_ID = 'G-CLTZ9TL3JM'
 const GTM_ID = 'GTM-5PM7M253'

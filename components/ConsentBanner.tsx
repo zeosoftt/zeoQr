@@ -24,19 +24,24 @@ const defaultGranted: ConsentState = {
 }
 
 export default function ConsentBanner() {
-  const [visible, setVisible] = useState(false)
+  const [visible, setVisible] = useState(true)
+  const [mounted, setMounted] = useState(false)
   const [manageOpen, setManageOpen] = useState(false)
   const [prefs, setPrefs] = useState<ConsentState>(defaultDenied)
 
   useEffect(() => {
+    setMounted(true)
+  }, [])
+
+  useEffect(() => {
+    if (!mounted) return
     const chosen = hasConsentChoice()
     setVisible(!chosen)
-    // Daha önce verilmiş rızayı gtag'e uygula (sayfa yenilenince consent kaybolmasın)
     if (chosen) {
       const state = getConsentFromCookie()
       if (state) updateGtagConsent(state)
     }
-  }, [])
+  }, [mounted])
 
   const applyAndClose = (state: ConsentState) => {
     setConsentCookie(state)
@@ -52,11 +57,11 @@ export default function ConsentBanner() {
     applyAndClose(prefs)
   }
 
-  if (!visible) return null
+  if (!mounted || !visible) return null
 
   return (
     <div
-      className="fixed bottom-0 left-0 right-0 z-50 border-t border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 shadow-[0_-4px_20px_rgba(0,0,0,0.08)] dark:shadow-[0_-4px_20px_rgba(0,0,0,0.3)]"
+      className="fixed inset-x-0 bottom-0 z-[9999] border-t border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 shadow-[0_-4px_20px_rgba(0,0,0,0.12)]"
       role="dialog"
       aria-label="Çerez ve veri kullanımı tercihleri"
     >
