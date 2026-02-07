@@ -75,6 +75,12 @@ export default function RootLayout({
   return (
     <html lang="tr">
       <head>
+        {/* Google AdSense - tüm sayfalarda */}
+        <script
+          async
+          src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5570650174796895"
+          crossOrigin="anonymous"
+        />
         {/* Google Tag Manager */}
         <script
           dangerouslySetInnerHTML={{
