@@ -72,7 +72,7 @@ export default function QRGenerator({ isPremium }: QRGeneratorProps) {
   return (
     <div className="grid lg:grid-cols-2 gap-8">
       {/* Left: Form */}
-      <div className="bg-white dark:bg-gray-800 rounded-xl border border-gray-200 dark:border-gray-700 p-8">
+      <div className="bg-white dark:bg-gray-800 rounded-2xl border border-gray-200 dark:border-gray-700 shadow-card p-8">
         <div className="space-y-6">
           {/* Type Selector */}
           <QRTypeSelector type={type} onTypeChange={setType} />
@@ -96,7 +96,7 @@ export default function QRGenerator({ isPremium }: QRGeneratorProps) {
                 : type === 'phone' ? '+905551234567'
                 : 'ornek@email.com'
               }
-              className="w-full px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-gray-900 dark:focus:ring-gray-100 focus:border-transparent dark:bg-gray-700 dark:text-white transition-all"
+              className="w-full px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-xl focus:ring-2 focus:ring-primary-500/30 focus:border-primary-500 dark:bg-gray-700 dark:text-white transition-all"
             />
           </div>
 
@@ -116,9 +116,9 @@ export default function QRGenerator({ isPremium }: QRGeneratorProps) {
           <button
             onClick={handleGenerate}
             disabled={loading || !content.trim()}
-            className="w-full bg-gray-900 dark:bg-white text-white dark:text-gray-900 font-medium py-3 px-6 rounded-lg transition-all hover:bg-gray-800 dark:hover:bg-gray-100 disabled:opacity-50 disabled:cursor-not-allowed"
+            className="w-full bg-primary-600 hover:bg-primary-700 dark:bg-primary-500 dark:hover:bg-primary-600 text-white font-medium py-3.5 px-6 rounded-xl transition-all disabled:opacity-50 disabled:cursor-not-allowed shadow-sm"
           >
-            {loading ? 'Oluşturuluyor...' : 'Oluştur'}
+            {loading ? 'Oluşturuluyor...' : 'QR Kod Oluştur'}
           </button>
 
           {/* Error Message */}
@@ -131,7 +131,7 @@ export default function QRGenerator({ isPremium }: QRGeneratorProps) {
       </div>
 
       {/* Right: QR Preview */}
-      <div className="bg-white dark:bg-gray-800 rounded-xl border border-gray-200 dark:border-gray-700 p-8">
+      <div className="bg-white dark:bg-gray-800 rounded-2xl border border-gray-200 dark:border-gray-700 shadow-card p-8">
         {qrDataUrl ? (
           <div className="flex flex-col items-center justify-center h-full space-y-6">
             <QRDisplay dataUrl={qrDataUrl} />
@@ -139,7 +139,7 @@ export default function QRGenerator({ isPremium }: QRGeneratorProps) {
           </div>
         ) : (
           <div className="flex flex-col items-center justify-center h-full min-h-[400px] text-center">
-            <div className="w-64 h-64 border-2 border-dashed border-gray-300 dark:border-gray-600 rounded-lg flex items-center justify-center">
+            <div className="w-64 h-64 border-2 border-dashed border-gray-200 dark:border-gray-600 rounded-2xl flex items-center justify-center bg-gray-50/50 dark:bg-gray-700/30">
               <p className="text-gray-400 dark:text-gray-500 text-sm">QR kod burada görünecek</p>
             </div>
           </div>

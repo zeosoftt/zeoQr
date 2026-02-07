@@ -4,6 +4,7 @@ import { Inter } from 'next/font/google'
 import Script from 'next/script'
 import './globals.css'
 import Navigation from '@/components/Navigation'
+import Footer from '@/components/Footer'
 
 const ConsentBanner = dynamic(() => import('@/components/ConsentBanner'), { ssr: false })
 
@@ -18,9 +19,13 @@ export const metadata: Metadata = {
   keywords: 'QR kod oluşturucu, QR kod, ücretsiz QR kod, QR kod yapıcı, QR kod üretici',
   authors: [{ name: 'ZeoQR' }],
   icons: {
-    icon: '/icon.svg',
-    apple: '/icon.svg',
+    icon: [{ url: '/icon.svg', type: 'image/svg+xml' }],
+    apple: [{ url: '/icon.svg', type: 'image/svg+xml', sizes: '180x180' }],
   },
+  themeColor: [
+    { media: '(prefers-color-scheme: light)', color: '#0284c7' },
+    { media: '(prefers-color-scheme: dark)', color: '#0c4a6e' },
+  ],
   openGraph: {
     title: 'ZeoQR - Ücretsiz QR Kod Oluşturucu',
     description: 'Anında QR kod oluşturun. Giriş gerektirmez.',
@@ -88,8 +93,11 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
             gtag('config', '${GA_MEASUREMENT_ID}');
           `}
         </Script>
-        <Navigation />
-        {children}
+        <div className="flex min-h-screen flex-col">
+          <Navigation />
+          <main className="flex-1">{children}</main>
+          <Footer />
+        </div>
         <ConsentBanner />
       </body>
     </html>

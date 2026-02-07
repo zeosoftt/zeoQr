@@ -86,8 +86,8 @@ export default function PricingPlans() {
       {plans.map((plan) => (
         <div
           key={plan.name}
-          className={`bg-white dark:bg-slate-800 rounded-lg shadow-lg p-8 ${
-            plan.popular ? 'ring-2 ring-primary-500 scale-105' : ''
+          className={`bg-white dark:bg-slate-800 rounded-2xl shadow-card hover:shadow-card-hover transition-shadow p-8 ${
+            plan.popular ? 'ring-2 ring-primary-500 dark:ring-primary-400' : ''
           }`}
         >
           {plan.popular && (
@@ -117,7 +117,7 @@ export default function PricingPlans() {
           <button
             onClick={() => handleCheckout(plan.planType)}
             disabled={loading === plan.planType}
-            className="w-full bg-primary-600 hover:bg-primary-700 text-white font-semibold py-3 px-6 rounded-lg transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+            className="w-full bg-primary-600 hover:bg-primary-700 text-white font-semibold py-3.5 px-6 rounded-xl transition-colors disabled:opacity-50 disabled:cursor-not-allowed shadow-sm"
           >
             {loading === plan.planType ? 'İşleniyor...' : 'Başla'}
           </button>

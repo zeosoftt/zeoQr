@@ -21,10 +21,10 @@ export default function QRTypeSelector({ type, onTypeChange }: QRTypeSelectorPro
         <button
           key={t.value}
           onClick={() => onTypeChange(t.value)}
-          className={`px-3 py-2.5 rounded-lg border transition-all ${
+          className={`px-3 py-2.5 rounded-xl border transition-all ${
             type === t.value
-              ? 'border-gray-900 dark:border-white bg-gray-900 dark:bg-white text-white dark:text-gray-900'
-              : 'border-gray-200 dark:border-gray-700 hover:border-gray-400 dark:hover:border-gray-500 text-gray-700 dark:text-gray-300'
+              ? 'border-primary-500 bg-primary-600 text-white dark:bg-primary-500 dark:border-primary-400'
+              : 'border-gray-200 dark:border-gray-700 hover:border-primary-300 dark:hover:border-primary-600 text-gray-700 dark:text-gray-300'
           }`}
         >
           <div className="text-lg mb-0.5">{t.icon}</div>

@@ -2,8 +2,21 @@
 @tailwind components;
 @tailwind utilities;
 
+html {
+  scroll-behavior: smooth;
+}
+
 body {
-  @apply bg-gray-50 dark:bg-gray-900 text-gray-900 dark:text-gray-100;
+  @apply bg-gray-50 dark:bg-gray-900 text-gray-900 dark:text-gray-100 antialiased;
+}
+
+/* Hafif arka plan deseni - ana sayfa için opsiyonel */
+.bg-subtle-pattern {
+  background-image: radial-gradient(circle at 1px 1px, rgb(0 0 0 / 0.04) 1px, transparent 0);
+  background-size: 24px 24px;
+}
+.dark .bg-subtle-pattern {
+  background-image: radial-gradient(circle at 1px 1px, rgb(255 255 255 / 0.04) 1px, transparent 0);
 }
 
 @layer utilities {
