@@ -2,9 +2,19 @@ import PricingPlans from '@/components/PricingPlans'
 import { Metadata } from 'next'
 import { Suspense } from 'react'
 
+const BASE_URL = process.env.NEXT_PUBLIC_APP_URL || 'https://zeoqr.com'
+
 export const metadata: Metadata = {
-  title: 'Fiyatlandırma - ZeoQR Premium',
-  description: 'Reklamsız deneyim, özel QR kodlar, analitik ve toplu üretim için ZeoQR Premium&apos;a yükseltin.',
+  title: 'Fiyatlandırma',
+  description: 'Reklamsız deneyim, özel QR kodlar, analitik ve toplu üretim için ZeoQR Premium\'a yükseltin. Aylık ve yaşam boyu planlar.',
+  openGraph: {
+    title: 'Fiyatlandırma | ZeoQR Premium',
+    description: 'Premium planlar: reklamsız kullanım, logo ekleme, analitik, toplu QR üretimi.',
+    url: `${BASE_URL}/pricing`,
+    type: 'website',
+    locale: 'tr_TR',
+  },
+  alternates: { canonical: `${BASE_URL}/pricing` },
 }
 
 export default async function PricingPage({

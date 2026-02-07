@@ -1,8 +1,18 @@
 import { Metadata } from 'next'
 
+const BASE_URL = process.env.NEXT_PUBLIC_APP_URL || 'https://zeoqr.com'
+
 export const metadata: Metadata = {
-  title: 'Sıkça Sorulan Sorular - ZeoQR',
+  title: 'Sıkça Sorulan Sorular',
   description: 'ZeoQR ile QR kod oluşturma, indirme, premium özellikler ve kullanım hakkında sıkça sorulan sorular ve yanıtları.',
+  openGraph: {
+    title: 'Sıkça Sorulan Sorular | ZeoQR',
+    description: 'ZeoQR QR kod oluşturucu hakkında SSS. Ücretsiz mi, nasıl kullanılır, premium özellikler.',
+    url: `${BASE_URL}/sss`,
+    type: 'website',
+    locale: 'tr_TR',
+  },
+  alternates: { canonical: `${BASE_URL}/sss` },
 }
 
 const faqs = [
@@ -36,9 +46,25 @@ const faqs = [
   },
 ]
 
+function getFAQPageSchema() {
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'FAQPage',
+    mainEntity: faqs.map((faq) => ({
+      '@type': 'Question',
+      name: faq.question,
+      acceptedAnswer: { '@type': 'Answer', text: faq.answer },
+    })),
+  }
+}
+
 export default function SSSPage() {
   return (
     <main className="min-h-screen bg-gradient-to-b from-white to-gray-50 dark:from-slate-900 dark:to-slate-800">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(getFAQPageSchema()) }}
+      />
       <div className="container mx-auto px-4 py-12 max-w-3xl">
         <header className="text-center mb-12">
           <h1 className="text-4xl md:text-5xl font-light text-gray-900 dark:text-white mb-3 tracking-tight">

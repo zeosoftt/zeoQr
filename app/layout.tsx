@@ -5,6 +5,7 @@ import Script from 'next/script'
 import './globals.css'
 import Navigation from '@/components/Navigation'
 import Footer from '@/components/Footer'
+import { getOrganizationSchema, getWebSiteSchema } from '@/lib/structured-data'
 
 const ConsentBanner = dynamic(() => import('@/components/ConsentBanner'), { ssr: false })
 
@@ -13,11 +14,19 @@ const GTM_ID = 'GTM-5PM7M253'
 
 const inter = Inter({ subsets: ['latin'] })
 
+const BASE_URL = process.env.NEXT_PUBLIC_APP_URL || 'https://zeoqr.com'
+
 export const metadata: Metadata = {
-  title: 'ZeoQR - Ücretsiz QR Kod Oluşturucu | Anında QR Kod Oluştur',
+  metadataBase: new URL(BASE_URL),
+  title: {
+    default: 'ZeoQR - Ücretsiz QR Kod Oluşturucu | Anında QR Kod Oluştur',
+    template: '%s | ZeoQR',
+  },
   description: 'URL, metin, telefon ve e-posta için QR kod oluşturun. Ücretsiz, anında, giriş gerektirmez. PNG olarak indirin. Premium özellikler mevcut.',
-  keywords: 'QR kod oluşturucu, QR kod, ücretsiz QR kod, QR kod yapıcı, QR kod üretici',
-  authors: [{ name: 'ZeoQR' }],
+  keywords: ['QR kod oluşturucu', 'QR kod', 'ücretsiz QR kod', 'QR kod yapıcı', 'QR kod üretici', 'QR generator'],
+  authors: [{ name: 'ZeoQR', url: BASE_URL }],
+  creator: 'ZeoQR',
+  publisher: 'ZeoQR',
   icons: {
     icon: [{ url: '/icon.svg', type: 'image/svg+xml' }],
     apple: [{ url: '/icon.svg', type: 'image/svg+xml', sizes: '180x180' }],
@@ -27,9 +36,13 @@ export const metadata: Metadata = {
     { media: '(prefers-color-scheme: dark)', color: '#0c4a6e' },
   ],
   openGraph: {
-    title: 'ZeoQR - Ücretsiz QR Kod Oluşturucu',
-    description: 'Anında QR kod oluşturun. Giriş gerektirmez.',
     type: 'website',
+    locale: 'tr_TR',
+    url: BASE_URL,
+    siteName: 'ZeoQR',
+    title: 'ZeoQR - Ücretsiz QR Kod Oluşturucu',
+    description: 'Anında QR kod oluşturun. Giriş gerektirmez. URL, metin, telefon, e-posta için ücretsiz QR kod.',
+    images: [{ url: '/icon.svg', width: 32, height: 32, alt: 'ZeoQR' }],
   },
   twitter: {
     card: 'summary_large_image',
@@ -39,9 +52,18 @@ export const metadata: Metadata = {
   robots: {
     index: true,
     follow: true,
+    googleBot: { index: true, follow: true },
   },
   verification: {
     google: 'a6BWEECgOVLs2N_48WsD8BZdpGG1kWCCi1av6KZyI7Y',
+  },
+  alternates: {
+    canonical: BASE_URL,
+  },
+  formatDetection: {
+    telephone: false,
+    email: false,
+    address: false,
   },
 }
 
@@ -66,6 +88,16 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
         {/* End Google Tag Manager */}
       </head>
       <body className={inter.className}>
+        {/* JSON-LD: Organization + WebSite (SEO 2026) */}
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify([
+              getOrganizationSchema(),
+              getWebSiteSchema(),
+            ]),
+          }}
+        />
         {/* Google Tag Manager (noscript) */}
         <noscript>
           <iframe
