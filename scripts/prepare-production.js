@@ -49,5 +49,20 @@ if (isProduction || isPostgres) {
   }
   console.log('✅ Schema verification passed - PostgreSQL confirmed')
 } else {
-  console.log('ℹ️  Using development schema (SQLite)')
+  // Local dev: use SQLite schema so npm install + dev works without Postgres
+  const localSchemaPath = path.join(__dirname, '../prisma/schema.local.prisma')
+  if (fs.existsSync(localSchemaPath)) {
+    const currentSchema = fs.existsSync(mainSchemaPath)
+      ? fs.readFileSync(mainSchemaPath, 'utf8')
+      : ''
+    if (currentSchema.includes('provider = "postgresql"')) {
+      const localSchema = fs.readFileSync(localSchemaPath, 'utf8')
+      fs.writeFileSync(mainSchemaPath, localSchema)
+      console.log('✅ Development schema (SQLite) activated')
+    } else {
+      console.log('ℹ️  Using development schema (SQLite)')
+    }
+  } else {
+    console.log('ℹ️  Using current schema')
+  }
 }

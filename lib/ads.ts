@@ -10,12 +10,13 @@ export interface AdConfig {
 }
 
 export function getAdConfig(): AdConfig {
-  const provider = (process.env.NEXT_PUBLIC_ADS_PROVIDER || 'adsense') as AdProvider
+  // Varsayılan: reklam kapalı. AdSense politikalarına uyum için sadece yeterli içerik varken açın.
+  const provider = (process.env.NEXT_PUBLIC_ADS_PROVIDER || 'none') as AdProvider
   const enabled = provider !== 'none'
 
   return {
     provider,
-    clientId: process.env.NEXT_PUBLIC_ADSENSE_CLIENT_ID || 'ca-pub-5570650174796895',
+    clientId: process.env.NEXT_PUBLIC_ADSENSE_CLIENT_ID,
     enabled,
   }
 }

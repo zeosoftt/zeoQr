@@ -36,13 +36,13 @@ export default function QRGenerator({ isPremium }: QRGeneratorProps) {
     try {
       const formattedContent = formatContentForQR(type, content)
       const qrHash = generateQRHash(formattedContent, type)
-      
-      // Track QR generation
-      await fetch('/api/qr/track', {
+
+      // Track QR generation (fire-and-forget; don't block or fail UX if DB is down)
+      fetch('/api/qr/track', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ qrHash, content: formattedContent, type }),
-      })
+      }).catch(() => {})
 
       let dataUrl = await generateQRCodeDataURL({
         type,

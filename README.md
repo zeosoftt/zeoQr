@@ -51,29 +51,17 @@ npm install
 
 3. Set up environment variables:
 ```bash
-cp .env.example .env
+copy env.example .env
 ```
+(Windows: `copy env.example .env` — macOS/Linux: `cp env.example .env`)
 
-Edit `.env` and add your configuration:
+Edit `.env`. For MVP, minimum config:
 ```env
 DATABASE_URL="file:./dev.db"
 NEXT_PUBLIC_APP_URL="http://localhost:3000"
-
-# Stripe (optional for MVP)
-STRIPE_SECRET_KEY=""
-NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY=""
-STRIPE_MONTHLY_PRICE_ID=""
-STRIPE_LIFETIME_PRICE_ID=""
-STRIPE_WEBHOOK_SECRET=""
-
-# Lemon Squeezy (optional)
-LEMONSQUEEZY_API_KEY=""
-LEMONSQUEEZY_STORE_ID=""
-
-# Ad Providers
-NEXT_PUBLIC_ADSENSE_CLIENT_ID=""
-NEXT_PUBLIC_ADS_PROVIDER="adsense" # adsense, custom, none
+NEXT_PUBLIC_ADS_PROVIDER="none"
 ```
+See `env.example` for all options. **Full MVP run & deploy steps:** [MVP_CHECKLIST.md](./MVP_CHECKLIST.md).
 
 4. Initialize the database:
 ```bash

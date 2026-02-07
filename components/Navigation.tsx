@@ -18,6 +18,7 @@ export default function Navigation() {
 
   const navItems = [
     { href: '/', label: 'Ana Sayfa' },
+    { href: '/sss', label: 'SSS' },
     { href: '/pricing', label: 'Fiyatlandırma' },
     ...(isPremium
       ? [

@@ -1,3 +1,4 @@
+import Link from 'next/link'
 import QRGenerator from '@/components/QRGenerator'
 import PremiumBanner from '@/components/PremiumBanner'
 import AdBanner from '@/components/AdBanner'
@@ -16,10 +17,13 @@ export default async function Home() {
           <h1 className="text-5xl font-light text-gray-900 dark:text-white mb-3 tracking-tight">
             ZeoQR
           </h1>
-          <p className="text-gray-500 dark:text-gray-400 font-light">
-            Anında QR kod oluşturun
+          <p className="text-gray-500 dark:text-gray-400 font-light text-lg max-w-2xl mx-auto">
+            Anında QR kod oluşturun. Ücretsiz, giriş gerektirmez. URL, metin, telefon veya e-posta için tek tıkla QR kod oluşturup PNG olarak indirin.
           </p>
         </header>
+
+        {/* ZeoQR Nedir - Yayıncı içeriği */}
+      
 
         {/* Premium Banner */}
         {!isPremium && <PremiumBanner />}
@@ -27,8 +31,105 @@ export default async function Home() {
         {/* QR Generator */}
         <QRGenerator isPremium={isPremium} />
 
-        {/* Ad Banner (below QR result) */}
+        {/* Ad Banner - sadece yeterli içerik varken (ana sayfa) ve provider açıksa */}
         {!isPremium && <AdBanner position="below-result" />}
+  <section className="mb-16 mt-16 max-w-3xl mx-auto">
+          <h2 className="text-2xl font-light text-gray-900 dark:text-white mb-4 tracking-tight">
+            ZeoQR Nedir?
+          </h2>
+          <div className="bg-white dark:bg-gray-800 rounded-xl border border-gray-200 dark:border-gray-700 p-6 md:p-8">
+            <p className="text-gray-600 dark:text-gray-300 leading-relaxed mb-4 font-light">
+              ZeoQR, web siteleri, iletişim bilgileri veya kısa metinler için anında QR kod üreten ücretsiz bir araçtır. Hesap açmadan, tarayıcınızda çalışır; oluşturduğunuz QR kodları PNG görsel olarak indirip baskı, kartvizit, menü veya dijital içeriklerinizde kullanabilirsiniz.
+            </p>
+            <p className="text-gray-600 dark:text-gray-300 leading-relaxed font-light">
+              QR kodlar, akıllı telefon kamerasıyla taranarak kullanıcıyı bir web sayfasına, metne, arama ekranına veya e-posta taslağına yönlendirir. İşletmeler, etkinlikler ve günlük kullanım için pratik bir çözüm sunar.
+            </p>
+          </div>
+        </section>
+        {/* QR Kod Türleri - Kaliteli içerik */}
+        <section className="mt-20 mb-16">
+          <h2 className="text-2xl font-light text-gray-900 dark:text-white mb-8 text-center tracking-tight">
+            Hangi Tür QR Kodlar Oluşturabilirsiniz?
+          </h2>
+          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6 max-w-5xl mx-auto">
+            <div className="bg-white dark:bg-gray-800 rounded-xl p-6 border border-gray-200 dark:border-gray-700">
+              <h3 className="text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">URL / Web adresi</h3>
+              <p className="text-sm text-gray-600 dark:text-gray-400 leading-relaxed font-light">
+                Herhangi bir web adresini QR koda çevirir. Tarandığında kullanıcı o sayfayı açar. Restoran menüsü, kampanya sayfası veya portfolyo linki için idealdir.
+              </p>
+            </div>
+            <div className="bg-white dark:bg-gray-800 rounded-xl p-6 border border-gray-200 dark:border-gray-700">
+              <h3 className="text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Metin</h3>
+              <p className="text-sm text-gray-600 dark:text-gray-400 leading-relaxed font-light">
+                Kısa veya uzun metinleri QR kod olarak saklayabilirsiniz. Tarandığında metin ekranda görünür. Bilgi notu, şiir veya talimatlar için kullanılabilir.
+              </p>
+            </div>
+            <div className="bg-white dark:bg-gray-800 rounded-xl p-6 border border-gray-200 dark:border-gray-700">
+              <h3 className="text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Telefon numarası</h3>
+              <p className="text-sm text-gray-600 dark:text-gray-400 leading-relaxed font-light">
+                Telefon numarası QR kodu, taranınca cihazın arama ekranını açar. Kartvizit, tabela veya müşteri hizmetleri için pratiktir.
+              </p>
+            </div>
+            <div className="bg-white dark:bg-gray-800 rounded-xl p-6 border border-gray-200 dark:border-gray-700">
+              <h3 className="text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">E-posta</h3>
+              <p className="text-sm text-gray-600 dark:text-gray-400 leading-relaxed font-light">
+                E-posta adresi ve isteğe bağlı konu ile QR kod oluşturulur. Taranınca e-posta istemcisi açılır. İletişim ve geri bildirim için kullanılır.
+              </p>
+            </div>
+          </div>
+        </section>
+
+        {/* Nasıl Kullanılır */}
+        <section className="mb-16 max-w-3xl mx-auto">
+          <h2 className="text-2xl font-light text-gray-900 dark:text-white mb-6 tracking-tight">
+            Nasıl Kullanılır?
+          </h2>
+          <div className="bg-white dark:bg-gray-800 rounded-xl border border-gray-200 dark:border-gray-700 p-6 md:p-8">
+            <ol className="list-decimal list-inside space-y-4 text-gray-600 dark:text-gray-300 font-light leading-relaxed">
+              <li><span className="font-medium text-gray-900 dark:text-white">Tür seçin:</span> URL, metin, telefon veya e-posta seçeneğinden birini işaretleyin.</li>
+              <li><span className="font-medium text-gray-900 dark:text-white">İçeriği girin:</span> İlgili alana web adresi, metin, telefon numarası veya e-posta adresinizi yazın.</li>
+              <li><span className="font-medium text-gray-900 dark:text-white">Oluştur:</span> &quot;QR Kod Oluştur&quot; butonuna tıklayın. Kod anında ekranda belirir.</li>
+              <li><span className="font-medium text-gray-900 dark:text-white">İndir:</span> PNG olarak indirip baskı veya dijital materyallerinizde kullanın.</li>
+            </ol>
+          </div>
+        </section>
+
+        {/* SSS */}
+        <section className="mb-16 max-w-3xl mx-auto">
+          <h2 className="text-2xl font-light text-gray-900 dark:text-white mb-6 tracking-tight">
+            Sıkça Sorulan Sorular
+          </h2>
+          <div className="bg-white dark:bg-gray-800 rounded-xl border border-gray-200 dark:border-gray-700 p-6 md:p-8">
+            <ul className="space-y-6">
+              <li className="border-b border-gray-100 dark:border-gray-700 pb-6 last:border-0 last:pb-0">
+                <h3 className="text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">ZeoQR ücretsiz mi?</h3>
+                <p className="text-sm text-gray-600 dark:text-gray-400 leading-relaxed font-light">
+                  Evet. Temel QR kod oluşturma (URL, metin, telefon, e-posta) tamamen ücretsizdir. Giriş yapmanız gerekmez. Premium planlarla reklamsız deneyim, logo ekleme ve toplu üretim gibi ek özellikler sunulur.
+                </p>
+              </li>
+              <li className="border-b border-gray-100 dark:border-gray-700 pb-6 last:border-0 last:pb-0">
+                <h3 className="text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">Oluşturduğum QR kodlar ne kadar süre geçerli?</h3>
+                <p className="text-sm text-gray-600 dark:text-gray-400 leading-relaxed font-light">
+                  QR kod görseli kalıcıdır. URL türünde, hedef linki değiştirmediğiniz sürece aynı QR kodu kullanmaya devam edebilirsiniz. Metin, telefon ve e-posta kodları da süresiz kullanılabilir.
+                </p>
+              </li>
+              <li className="border-b border-gray-100 dark:border-gray-700 pb-6 last:border-0 last:pb-0">
+                <h3 className="text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">QR kodumu nasıl test ederim?</h3>
+                <p className="text-sm text-gray-600 dark:text-gray-400 leading-relaxed font-light">
+                  Akıllı telefonunuzun kamera uygulaması veya bir QR okuyucu uygulamasıyla kodu tarayın. Doğru sayfaya, metne veya arama ekranına yönlendirildiğinizi kontrol edin.
+                </p>
+              </li>
+            </ul>
+            <p className="mt-6 pt-4 border-t border-gray-100 dark:border-gray-700">
+              <Link
+                href="/sss"
+                className="text-primary-600 dark:text-primary-400 hover:text-primary-700 dark:hover:text-primary-300 font-medium text-sm transition-colors"
+              >
+                Tüm SSS sayfası →
+              </Link>
+            </p>
+          </div>
+        </section>
       </div>
     </main>
   )

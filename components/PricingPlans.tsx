@@ -1,13 +1,13 @@
 'use client'
 
 import { useState } from 'react'
-import { useRouter } from 'next/navigation'
 
 export default function PricingPlans() {
   const [loading, setLoading] = useState<string | null>(null)
-  const router = useRouter()
+  const [message, setMessage] = useState<{ type: 'info' | 'error'; text: string } | null>(null)
 
   const handleCheckout = async (planType: 'monthly' | 'lifetime', provider: 'stripe' | 'lemonsqueezy' = 'stripe') => {
+    setMessage(null)
     setLoading(planType)
     try {
       const response = await fetch('/api/subscription/create-checkout', {
@@ -17,15 +17,23 @@ export default function PricingPlans() {
       })
 
       const data = await response.json()
-      
+
       if (data.url) {
         window.location.href = data.url
-      } else {
-        alert('Ödeme oturumu oluşturulamadı')
+        return
       }
+      if (!response.ok && data.error) {
+        if (data.error === 'Stripe not configured' || data.error === 'Price ID not configured') {
+          setMessage({ type: 'info', text: 'Ödeme sistemi yakında açılacak. Şimdilik ücretsiz özellikleri kullanabilirsiniz.' })
+          return
+        }
+        setMessage({ type: 'error', text: data.error })
+        return
+      }
+      setMessage({ type: 'error', text: 'Ödeme oturumu oluşturulamadı' })
     } catch (error) {
       console.error('Checkout error:', error)
-      alert('Ödeme başlatılamadı')
+      setMessage({ type: 'error', text: 'Ödeme başlatılamadı' })
     } finally {
       setLoading(null)
     }
@@ -64,6 +72,17 @@ export default function PricingPlans() {
 
   return (
     <div className="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto">
+      {message && (
+        <div
+          className={`md:col-span-2 px-4 py-3 rounded-lg text-center ${
+            message.type === 'info'
+              ? 'bg-blue-50 dark:bg-blue-900/20 border border-blue-200 dark:border-blue-800 text-blue-700 dark:text-blue-400'
+              : 'bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 text-red-700 dark:text-red-400'
+          }`}
+        >
+          {message.text}
+        </div>
+      )}
       {plans.map((plan) => (
         <div
           key={plan.name}
