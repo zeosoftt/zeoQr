@@ -61,17 +61,14 @@ export default function ConsentBanner() {
 
   return (
     <div
-      className="fixed inset-x-0 bottom-0 z-[9999] border-t border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 shadow-[0_-4px_20px_rgba(0,0,0,0.12)]"
+      className="fixed inset-x-0 bottom-0 z-[9999] border-t border-editor-border bg-editor-sidebar shadow-[0_-4px_20px_rgba(0,0,0,0.4)] animate-[fade-in_0.3s_ease-out]"
       role="dialog"
       aria-label="Çerez ve veri kullanımı tercihleri"
     >
       <div className="container mx-auto px-4 py-4 max-w-4xl">
-        <p className="text-sm text-gray-600 dark:text-gray-400 mb-4 font-light leading-relaxed">
+        <p className="text-sm text-editor-muted mb-4 font-light leading-relaxed">
           Sitemiz, AEA/İngiltere/İsviçre yükümlülükleri kapsamında deneyiminizi iyileştirmek ve reklam sunmak için çerez ve benzeri veriler kullanıyor. Tercihinizi aşağıdan seçebilir veya çerez ayarlarını yönetebilirsiniz.
-          <a
-            href="/sss"
-            className="text-primary-600 dark:text-primary-400 hover:underline ml-1"
-          >
+          <a href="/sss" className="text-editor-accent hover:underline ml-1 transition-colors duration-300">
             Daha fazla bilgi
           </a>
         </p>
@@ -81,21 +78,21 @@ export default function ConsentBanner() {
             <button
               type="button"
               onClick={handleAccept}
-              className="px-4 py-2 rounded-lg bg-primary-600 hover:bg-primary-700 text-white text-sm font-medium transition-colors"
+              className="px-4 py-2 rounded bg-editor-accent hover:bg-editor-accent/90 text-white text-sm font-medium transition-all duration-300 hover:scale-105 active:scale-95"
             >
               İzin ver
             </button>
             <button
               type="button"
               onClick={handleDeny}
-              className="px-4 py-2 rounded-lg border border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 text-sm font-medium transition-colors"
+              className="px-4 py-2 rounded border border-editor-border text-editor-text hover:bg-editor-surface text-sm font-medium transition-all duration-300 hover:scale-105 active:scale-95"
             >
               İzin verme
             </button>
             <button
               type="button"
               onClick={() => setManageOpen(true)}
-              className="px-4 py-2 rounded-lg border border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 text-sm font-medium transition-colors"
+              className="px-4 py-2 rounded border border-editor-border text-editor-text hover:bg-editor-surface text-sm font-medium transition-all duration-300 hover:scale-105 active:scale-95"
             >
               Seçenekleri yönet
             </button>
@@ -103,7 +100,7 @@ export default function ConsentBanner() {
         ) : (
           <div className="space-y-4 pt-2">
             <div className="flex items-center justify-between">
-              <span className="text-sm font-medium text-gray-700 dark:text-gray-300">
+              <span className="text-sm font-medium text-editor-text">
                 Reklam ve kişiselleştirme çerezleri
               </span>
               <label className="relative inline-flex items-center cursor-pointer">
@@ -120,11 +117,11 @@ export default function ConsentBanner() {
                   }
                   className="sr-only peer"
                 />
-                <div className="w-9 h-5 bg-gray-200 dark:bg-gray-600 peer-focus:ring-2 peer-focus:ring-primary-300 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-4 after:w-4 after:transition-all peer-checked:bg-primary-600" />
+                <div className="w-9 h-5 bg-editor-surface peer-focus:ring-2 peer-focus:ring-editor-accent/50 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border after:rounded-full after:h-4 after:w-4 after:transition-all peer-checked:bg-editor-accent" />
               </label>
             </div>
             <div className="flex items-center justify-between">
-              <span className="text-sm font-medium text-gray-700 dark:text-gray-300">
+              <span className="text-sm font-medium text-editor-text">
                 Analitik çerezleri
               </span>
               <label className="relative inline-flex items-center cursor-pointer">
@@ -136,21 +133,21 @@ export default function ConsentBanner() {
                   }
                   className="sr-only peer"
                 />
-                <div className="w-9 h-5 bg-gray-200 dark:bg-gray-600 peer-focus:ring-2 peer-focus:ring-primary-300 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-4 after:w-4 after:transition-all peer-checked:bg-primary-600" />
+                <div className="w-9 h-5 bg-editor-surface peer-focus:ring-2 peer-focus:ring-editor-accent/50 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border after:rounded-full after:h-4 after:w-4 after:transition-all peer-checked:bg-editor-accent" />
               </label>
             </div>
             <div className="flex flex-wrap gap-3 pt-2">
               <button
                 type="button"
                 onClick={handleManageSave}
-                className="px-4 py-2 rounded-lg bg-primary-600 hover:bg-primary-700 text-white text-sm font-medium transition-colors"
+                className="px-4 py-2 rounded bg-editor-accent hover:bg-editor-accent/90 text-white text-sm font-medium transition-colors"
               >
                 Tercihleri kaydet
               </button>
               <button
                 type="button"
                 onClick={() => setManageOpen(false)}
-                className="px-4 py-2 rounded-lg border border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 text-sm font-medium transition-colors"
+                className="px-4 py-2 rounded border border-editor-border text-editor-text hover:bg-editor-surface text-sm font-medium transition-colors"
               >
                 Geri
               </button>

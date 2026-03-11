@@ -76,8 +76,8 @@ export default function PricingPlans() {
         <div
           className={`md:col-span-2 px-4 py-3 rounded-lg text-center ${
             message.type === 'info'
-              ? 'bg-blue-50 dark:bg-blue-900/20 border border-blue-200 dark:border-blue-800 text-blue-700 dark:text-blue-400'
-              : 'bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 text-red-700 dark:text-red-400'
+              ? 'bg-editor-accent/20 border border-editor-accent/50 text-editor-accent'
+              : 'bg-red-900/20 border border-red-800 text-red-400'
           }`}
         >
           {message.text}
@@ -86,38 +86,38 @@ export default function PricingPlans() {
       {plans.map((plan) => (
         <div
           key={plan.name}
-          className={`bg-white dark:bg-slate-800 rounded-2xl shadow-card hover:shadow-card-hover transition-shadow p-8 ${
-            plan.popular ? 'ring-2 ring-primary-500 dark:ring-primary-400' : ''
+          className={`bg-editor-sidebar rounded-lg border border-editor-border shadow-card p-8 transition-shadow ${
+            plan.popular ? 'ring-2 ring-editor-accent' : ''
           }`}
         >
           {plan.popular && (
-            <div className="bg-primary-500 text-white text-sm font-semibold px-3 py-1 rounded-full inline-block mb-4">
+            <div className="bg-editor-accent text-white text-sm font-semibold px-3 py-1 rounded inline-block mb-4 font-mono">
               En Popüler
             </div>
           )}
-          <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-2">
+          <h2 className="font-mono text-2xl font-bold text-editor-text mb-2">
             {plan.name}
           </h2>
           <div className="mb-6">
-            <span className="text-4xl font-bold text-gray-900 dark:text-white">
+            <span className="text-4xl font-bold text-editor-text">
               {plan.price}
             </span>
-            <span className="text-gray-600 dark:text-gray-400 ml-2">
+            <span className="text-editor-muted ml-2">
               {plan.period}
             </span>
           </div>
           <ul className="space-y-3 mb-8">
             {plan.features.map((feature, idx) => (
               <li key={idx} className="flex items-start">
-                <span className="text-green-500 mr-2">✓</span>
-                <span className="text-gray-700 dark:text-gray-300">{feature}</span>
+                <span className="text-green-400 mr-2">✓</span>
+                <span className="text-editor-text/90">{feature}</span>
               </li>
             ))}
           </ul>
           <button
             onClick={() => handleCheckout(plan.planType)}
             disabled={loading === plan.planType}
-            className="w-full bg-primary-600 hover:bg-primary-700 text-white font-semibold py-3.5 px-6 rounded-xl transition-colors disabled:opacity-50 disabled:cursor-not-allowed shadow-sm"
+            className="w-full bg-editor-accent hover:bg-editor-accent/90 text-white font-semibold py-3.5 px-6 rounded transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed font-mono hover:scale-[1.02] active:scale-[0.98]"
           >
             {loading === plan.planType ? 'İşleniyor...' : 'Başla'}
           </button>

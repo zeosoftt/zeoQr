@@ -1,6 +1,7 @@
 'use client'
 
 import { useState } from 'react'
+import { Zap } from 'lucide-react'
 import { QRType, generateQRCodeDataURL, formatContentForQR, generateQRHash } from '@/lib/qr'
 import { overlayLogoOnQR } from '@/lib/qr-logo'
 import QRTypeSelector from './QRTypeSelector'
@@ -72,14 +73,12 @@ export default function QRGenerator({ isPremium }: QRGeneratorProps) {
   return (
     <div className="grid lg:grid-cols-2 gap-8">
       {/* Left: Form */}
-      <div className="bg-white dark:bg-gray-800 rounded-2xl border border-gray-200 dark:border-gray-700 shadow-card p-8">
+      <div className="bg-editor-sidebar rounded-lg border border-editor-border shadow-card p-8">
         <div className="space-y-6">
-          {/* Type Selector */}
           <QRTypeSelector type={type} onTypeChange={setType} />
 
-          {/* Content Input */}
           <div>
-            <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+            <label className="block text-sm font-medium text-editor-text mb-2 font-mono">
               {type === 'url' && 'URL'}
               {type === 'text' && 'Metin'}
               {type === 'phone' && 'Telefon Numarası'}
@@ -96,11 +95,10 @@ export default function QRGenerator({ isPremium }: QRGeneratorProps) {
                 : type === 'phone' ? '+905551234567'
                 : 'ornek@email.com'
               }
-              className="w-full px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-xl focus:ring-2 focus:ring-primary-500/30 focus:border-primary-500 dark:bg-gray-700 dark:text-white transition-all"
+              className="w-full px-4 py-3 border border-editor-border rounded bg-editor-surface text-editor-text placeholder:text-editor-muted focus:ring-2 focus:ring-editor-accent/40 focus:border-editor-accent transition-all font-mono text-sm"
             />
           </div>
 
-          {/* Premium Features */}
           {isPremium && (
             <PremiumFeatures
               logoUrl={logoUrl}
@@ -112,18 +110,17 @@ export default function QRGenerator({ isPremium }: QRGeneratorProps) {
             />
           )}
 
-          {/* Generate Button */}
           <button
             onClick={handleGenerate}
             disabled={loading || !content.trim()}
-            className="w-full bg-primary-600 hover:bg-primary-700 dark:bg-primary-500 dark:hover:bg-primary-600 text-white font-medium py-3.5 px-6 rounded-xl transition-all disabled:opacity-50 disabled:cursor-not-allowed shadow-sm"
+            className="w-full flex items-center justify-center gap-2 bg-editor-accent hover:bg-editor-accent/90 text-white font-medium py-3.5 px-6 rounded transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed shadow-sm hover:shadow-card-hover hover:scale-[1.01] active:scale-[0.99]"
           >
+            <Zap className="w-5 h-5 shrink-0" strokeWidth={2} />
             {loading ? 'Oluşturuluyor...' : 'QR Kod Oluştur'}
           </button>
 
-          {/* Error Message */}
           {error && (
-            <div className="bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 text-red-700 dark:text-red-400 px-4 py-3 rounded-lg text-sm">
+            <div className="bg-red-900/20 border border-red-800 text-red-400 px-4 py-3 rounded-lg text-sm">
               {error}
             </div>
           )}
@@ -131,7 +128,7 @@ export default function QRGenerator({ isPremium }: QRGeneratorProps) {
       </div>
 
       {/* Right: QR Preview */}
-      <div className="bg-white dark:bg-gray-800 rounded-2xl border border-gray-200 dark:border-gray-700 shadow-card p-8">
+      <div className="bg-editor-sidebar rounded-lg border border-editor-border shadow-card p-8">
         {qrDataUrl ? (
           <div className="flex flex-col items-center justify-center h-full space-y-6">
             <QRDisplay dataUrl={qrDataUrl} />
@@ -139,8 +136,8 @@ export default function QRGenerator({ isPremium }: QRGeneratorProps) {
           </div>
         ) : (
           <div className="flex flex-col items-center justify-center h-full min-h-[400px] text-center">
-            <div className="w-64 h-64 border-2 border-dashed border-gray-200 dark:border-gray-600 rounded-2xl flex items-center justify-center bg-gray-50/50 dark:bg-gray-700/30">
-              <p className="text-gray-400 dark:text-gray-500 text-sm">QR kod burada görünecek</p>
+            <div className="w-64 h-64 border-2 border-dashed border-editor-border rounded-lg flex items-center justify-center bg-editor-surface/50">
+              <p className="text-editor-muted text-sm font-mono">QR kod burada görünecek</p>
             </div>
           </div>
         )}

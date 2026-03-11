@@ -54,18 +54,18 @@ export default function AdBanner({ position }: AdBannerProps) {
 
   return (
     <div className={containerClass}>
-      <div ref={adRef} className="min-h-[100px] flex items-center justify-center bg-gray-100 dark:bg-gray-800 rounded-lg">
+      <div ref={adRef} className="min-h-[100px] flex items-center justify-center bg-editor-sidebar border border-editor-border rounded-lg">
         {adConfig.provider === 'adsense' ? (
           <ins
             className="adsbygoogle"
             style={{ display: 'block' }}
             data-ad-client="ca-pub-5570650174796895"
-            data-ad-slot="1234567890" // Replace with actual ad slot ID from AdSense
+            data-ad-slot="1234567890"
             data-ad-format="auto"
             data-full-width-responsive="true"
           />
         ) : (
-          <div className="text-gray-400 text-sm">
+          <div className="text-editor-muted text-sm font-mono">
             Ad placeholder - Configure your ad provider
           </div>
         )}

@@ -35,84 +35,82 @@ export default function AnalyticsDashboard() {
   }, [])
 
   if (loading) {
-    return <div className="text-center py-12">Analitikler yükleniyor...</div>
+    return <div className="text-center py-12 text-editor-muted font-mono">Analitikler yükleniyor...</div>
   }
 
   if (!data) {
-    return <div className="text-center py-12 text-red-600">Analitikler yüklenemedi</div>
+    return <div className="text-center py-12 text-red-400 font-mono">Analitikler yüklenemedi</div>
   }
 
   return (
     <div className="space-y-6">
-      {/* Summary Cards */}
       <div className="grid md:grid-cols-2 gap-6">
-        <div className="bg-white dark:bg-slate-800 rounded-lg shadow p-6">
-          <h3 className="text-sm font-medium text-gray-600 dark:text-gray-400 mb-2">
+        <div className="bg-editor-sidebar rounded-lg border border-editor-border p-6">
+          <h3 className="font-mono text-sm font-medium text-editor-muted mb-2">
             Toplam QR Kod
           </h3>
-          <p className="text-3xl font-bold text-gray-900 dark:text-white">
+          <p className="text-3xl font-bold text-editor-text">
             {data.totalQRCodes}
           </p>
         </div>
-        <div className="bg-white dark:bg-slate-800 rounded-lg shadow p-6">
-          <h3 className="text-sm font-medium text-gray-600 dark:text-gray-400 mb-2">
+        <div className="bg-editor-sidebar rounded-lg border border-editor-border p-6">
+          <h3 className="font-mono text-sm font-medium text-editor-muted mb-2">
             Toplam Tarama
           </h3>
-          <p className="text-3xl font-bold text-gray-900 dark:text-white">
+          <p className="text-3xl font-bold text-editor-text">
             {data.totalScans}
           </p>
         </div>
       </div>
 
-      {/* QR Codes Table */}
-      <div className="bg-white dark:bg-slate-800 rounded-lg shadow overflow-hidden">
-        <div className="px-6 py-4 border-b border-gray-200 dark:border-gray-700">
-          <h3 className="text-lg font-semibold text-gray-900 dark:text-white">
+      <div className="bg-editor-sidebar rounded-lg border border-editor-border overflow-hidden">
+        <div className="px-6 py-4 border-b border-editor-border">
+          <h3 className="font-mono text-lg font-semibold text-editor-text">
             QR Kodlarınız
           </h3>
         </div>
         <div className="overflow-x-auto">
           <table className="w-full">
-            <thead className="bg-gray-50 dark:bg-slate-700">
+            <thead className="bg-editor-surface">
               <tr>
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">
+                <th className="px-6 py-3 text-left text-xs font-medium text-editor-muted uppercase tracking-wider font-mono">
                   İçerik
                 </th>
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">
+                <th className="px-6 py-3 text-left text-xs font-medium text-editor-muted uppercase tracking-wider font-mono">
                   Tip
                 </th>
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">
+                <th className="px-6 py-3 text-left text-xs font-medium text-editor-muted uppercase tracking-wider font-mono">
                   Tarama
                 </th>
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">
+                <th className="px-6 py-3 text-left text-xs font-medium text-editor-muted uppercase tracking-wider font-mono">
                   Oluşturulma
                 </th>
               </tr>
             </thead>
-            <tbody className="divide-y divide-gray-200 dark:divide-gray-700">
+            <tbody className="divide-y divide-editor-border">
               {data.qrCodes.length === 0 ? (
                 <tr>
-                  <td colSpan={4} className="px-6 py-8 text-center text-gray-500 dark:text-gray-400">
+                  <td colSpan={4} className="px-6 py-8 text-center text-editor-muted">
                     Henüz QR kod oluşturulmadı
                   </td>
                 </tr>
               ) : (
                 data.qrCodes.map((qr) => (
-                  <tr key={qr.id} className="hover:bg-gray-50 dark:hover:bg-slate-700">
+                  <tr key={qr.id} className="hover:bg-editor-surface/50">
                     <td className="px-6 py-4 whitespace-nowrap">
-                      <div className="text-sm text-gray-900 dark:text-white max-w-xs truncate">
+                      <div className="text-sm text-editor-text max-w-xs truncate font-mono">
                         {qr.content}
                       </div>
                     </td>
                     <td className="px-6 py-4 whitespace-nowrap">
-                      <span className="px-2 py-1 text-xs font-medium rounded-full bg-primary-100 text-primary-800 dark:bg-primary-900 dark:text-primary-200">
+                      <span className="px-2 py-1 text-xs font-medium rounded bg-editor-accent/20 text-editor-accent font-mono">
                         {qr.type}
                       </span>
                     </td>
-                    <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900 dark:text-white">
+                    <td className="px-6 py-4 whitespace-nowrap text-sm text-editor-text">
                       {qr.scanCount}
                     </td>
-                    <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-400">
+                    <td className="px-6 py-4 whitespace-nowrap text-sm text-editor-muted">
                       {new Date(qr.createdAt).toLocaleDateString()}
                     </td>
                   </tr>

@@ -1,6 +1,6 @@
 import type { Metadata } from 'next'
 import dynamic from 'next/dynamic'
-import { Inter } from 'next/font/google'
+import { Inter, JetBrains_Mono } from 'next/font/google'
 import Script from 'next/script'
 import './globals.css'
 import Navigation from '@/components/Navigation'
@@ -13,6 +13,7 @@ const GA_MEASUREMENT_ID = 'G-CLTZ9TL3JM'
 const GTM_ID = 'GTM-5PM7M253'
 
 const inter = Inter({ subsets: ['latin'] })
+const jetbrainsMono = JetBrains_Mono({ subsets: ['latin'], variable: '--font-jetbrains-mono' })
 
 const BASE_URL = process.env.NEXT_PUBLIC_APP_URL || 'https://zeoqr.com'
 
@@ -32,8 +33,8 @@ export const metadata: Metadata = {
     apple: [{ url: '/icon.svg', type: 'image/svg+xml', sizes: '180x180' }],
   },
   themeColor: [
-    { media: '(prefers-color-scheme: light)', color: '#0284c7' },
-    { media: '(prefers-color-scheme: dark)', color: '#0c4a6e' },
+    { media: '(prefers-color-scheme: light)', color: '#1e1e1e' },
+    { media: '(prefers-color-scheme: dark)', color: '#1e1e1e' },
   ],
   openGraph: {
     type: 'website',
@@ -73,7 +74,7 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
-    <html lang="tr">
+    <html lang="tr" className="dark">
       <head>
         {/* Google AdSense - tüm sayfalarda */}
         <script
@@ -93,7 +94,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
         />
         {/* End Google Tag Manager */}
       </head>
-      <body className={inter.className}>
+      <body className={`${inter.className} ${jetbrainsMono.variable}`}>
         {/* JSON-LD: Organization + WebSite (SEO 2026) */}
         <script
           type="application/ld+json"

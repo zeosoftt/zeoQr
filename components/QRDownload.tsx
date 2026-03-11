@@ -1,6 +1,7 @@
 'use client'
 
 import { useState } from 'react'
+import { Download } from 'lucide-react'
 import { shouldShowAds } from '@/lib/ads'
 
 interface QRDownloadProps {
@@ -36,10 +37,10 @@ export default function QRDownload({ dataUrl, isPremium }: QRDownloadProps) {
     <div className="flex justify-center">
       <button
         onClick={handleDownload}
-        className="bg-gray-900 dark:bg-white text-white dark:text-gray-900 font-medium py-2.5 px-6 rounded-lg transition-all hover:bg-gray-800 dark:hover:bg-gray-100 flex items-center gap-2 text-sm"
+        className="bg-editor-accent hover:bg-editor-accent/90 text-white font-medium py-2.5 px-6 rounded transition-all duration-300 flex items-center gap-2 text-sm font-mono hover:scale-105 active:scale-95"
       >
-        <span>⬇</span>
-        <span>PNG İndir</span>
+        <Download className="w-4 h-4" strokeWidth={2} />
+        PNG İndir
       </button>
     </div>
   )

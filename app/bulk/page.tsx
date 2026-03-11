@@ -18,9 +18,9 @@ export default async function BulkPage() {
   }
 
   return (
-    <main className="min-h-screen bg-gradient-to-b from-white to-gray-50 dark:from-slate-900 dark:to-slate-800">
+    <main className="min-h-screen bg-editor">
       <div className="container mx-auto px-4 py-8 max-w-4xl">
-        <h1 className="text-3xl font-bold text-gray-900 dark:text-white mb-6">
+        <h1 className="font-mono text-3xl font-bold text-editor-text mb-6">
           Toplu QR Kod Oluşturucu
         </h1>
         <BulkGenerator />

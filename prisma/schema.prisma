@@ -1,6 +1,5 @@
-// Production schema for PostgreSQL (Vercel)
-// Copy this to schema.prisma before deploying to production
-// Or use a build script to switch automatically
+// Local development için SQLite kullanmak istersen bu dosyayı schema.prisma olarak kopyala
+// veya prisma/schema.prisma dosyasında provider'ı "sqlite" yap
 
 // Minimal schema for QR code tracking and premium subscriptions
 generator client {
@@ -8,7 +7,7 @@ generator client {
 }
 
 datasource db {
-  provider = "postgresql"
+  provider = "sqlite"
   url      = env("DATABASE_URL")
 }
 

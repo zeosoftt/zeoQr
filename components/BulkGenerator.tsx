@@ -116,13 +116,13 @@ export default function BulkGenerator() {
   }
 
   return (
-    <div className="bg-white dark:bg-slate-800 rounded-lg shadow-lg p-6 md:p-8">
+    <div className="bg-editor-sidebar rounded-lg border border-editor-border shadow-card p-6 md:p-8">
       <div className="space-y-6">
         <div>
-          <h2 className="text-lg font-semibold text-gray-900 dark:text-white mb-2">
+          <h2 className="font-mono text-lg font-semibold text-editor-text mb-2">
             CSV Dosyası Yükle
           </h2>
-          <p className="text-sm text-gray-600 dark:text-gray-400 mb-4">
+          <p className="text-sm text-editor-muted mb-4">
             Format: tip,içerik (her satırda bir)
             <br />
             Örnek: url,https://ornek.com
@@ -131,28 +131,28 @@ export default function BulkGenerator() {
             type="file"
             accept=".csv,.txt"
             onChange={handleFileUpload}
-            className="block w-full text-sm text-gray-500 dark:text-gray-400 file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-sm file:font-semibold file:bg-primary-50 file:text-primary-700 hover:file:bg-primary-100 dark:file:bg-primary-900/20 dark:file:text-primary-300"
+            className="block w-full text-sm text-editor-muted file:mr-4 file:py-2 file:px-4 file:rounded file:border file:border-editor-border file:text-sm file:font-semibold file:bg-editor-surface file:text-editor-accent"
           />
         </div>
 
         {items.length > 0 && (
           <div>
             <div className="flex justify-between items-center mb-4">
-              <p className="text-sm text-gray-600 dark:text-gray-400">
+              <p className="text-sm text-editor-muted">
                 {items.length} öğe yüklendi
               </p>
               <div className="flex gap-2">
                 <button
                   onClick={handleGenerate}
                   disabled={loading}
-                  className="bg-primary-600 hover:bg-primary-700 text-white font-semibold py-2 px-4 rounded-lg transition-colors disabled:opacity-50"
+                  className="bg-editor-accent hover:bg-editor-accent/90 text-white font-semibold py-2 px-4 rounded transition-colors disabled:opacity-50 font-mono"
                 >
                   {loading ? 'Oluşturuluyor...' : 'Tümünü Oluştur'}
                 </button>
                 {items[0]?.qrDataUrl && (
                   <button
                     onClick={handleDownloadAll}
-                    className="bg-green-600 hover:bg-green-700 text-white font-semibold py-2 px-4 rounded-lg transition-colors"
+                    className="bg-green-600 hover:bg-green-700 text-white font-semibold py-2 px-4 rounded transition-colors font-mono"
                   >
                     Tümünü İndir
                   </button>
@@ -163,7 +163,7 @@ export default function BulkGenerator() {
         )}
 
         {error && (
-          <div className="bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 text-red-700 dark:text-red-400 px-4 py-3 rounded-lg">
+          <div className="bg-red-900/20 border border-red-800 text-red-400 px-4 py-3 rounded-lg">
             {error}
           </div>
         )}
@@ -171,7 +171,7 @@ export default function BulkGenerator() {
         {items.length > 0 && (
           <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 max-h-96 overflow-y-auto">
             {items.map((item, idx) => (
-              <div key={idx} className="border border-gray-200 dark:border-gray-700 rounded-lg p-3">
+              <div key={idx} className="border border-editor-border rounded-lg p-3 bg-editor-surface">
                 {item.qrDataUrl ? (
                   /* eslint-disable-next-line @next/next/no-img-element */
                   <img
@@ -180,11 +180,11 @@ export default function BulkGenerator() {
                     className="w-full mb-2"
                   />
                 ) : (
-                  <div className="w-full aspect-square bg-gray-100 dark:bg-gray-700 rounded flex items-center justify-center text-xs text-gray-400">
+                  <div className="w-full aspect-square bg-editor-surface rounded flex items-center justify-center text-xs text-editor-muted">
                     Oluşturulmadı
                   </div>
                 )}
-                <p className="text-xs text-gray-600 dark:text-gray-400 truncate">
+                <p className="text-xs text-editor-muted truncate font-mono">
                   {item.type}: {item.content.substring(0, 20)}...
                 </p>
               </div>

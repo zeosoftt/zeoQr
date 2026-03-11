@@ -60,32 +60,32 @@ function getFAQPageSchema() {
 
 export default function SSSPage() {
   return (
-    <main className="min-h-screen bg-gradient-to-b from-white to-gray-50 dark:from-slate-900 dark:to-slate-800">
+    <main className="min-h-screen bg-editor">
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(getFAQPageSchema()) }}
       />
       <div className="container mx-auto px-4 py-12 max-w-3xl">
         <header className="text-center mb-12">
-          <h1 className="text-4xl md:text-5xl font-light text-gray-900 dark:text-white mb-3 tracking-tight">
+          <h1 className="font-mono text-4xl md:text-5xl font-medium text-editor-text mb-3 tracking-tight">
             Sıkça Sorulan Sorular
           </h1>
-          <p className="text-gray-500 dark:text-gray-400 font-light text-lg max-w-xl mx-auto">
+          <p className="text-editor-muted font-light text-lg max-w-xl mx-auto">
             ZeoQR ile QR kod oluşturma, indirme ve premium özellikler hakkında merak ettiklerinizin yanıtları.
           </p>
         </header>
 
-        <div className="bg-white dark:bg-gray-800 rounded-2xl border border-gray-200 dark:border-gray-700 shadow-card p-6 md:p-8">
+        <div className="bg-editor-sidebar rounded-lg border border-editor-border shadow-card p-6 md:p-8">
           <ul className="space-y-0">
             {faqs.map((faq, index) => (
               <li
                 key={index}
-                className={`py-6 ${index < faqs.length - 1 ? 'border-b border-gray-100 dark:border-gray-700' : ''}`}
+                className={`py-6 ${index < faqs.length - 1 ? 'border-b border-editor-border' : ''}`}
               >
-                <h2 className="text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                <h2 className="font-mono text-sm font-medium text-editor-text mb-2">
                   {faq.question}
                 </h2>
-                <p className="text-gray-600 dark:text-gray-400 leading-relaxed font-light text-sm">
+                <p className="text-editor-muted leading-relaxed font-light text-sm">
                   {faq.answer}
                 </p>
               </li>
